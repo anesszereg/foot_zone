@@ -25,6 +25,7 @@ const Checkout = () => {
   const [submitting, setSubmitting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [errorDialog, setErrorDialog] = useState({ open: false, message: '' });
+  const [successDialog, setSuccessDialog] = useState({ open: false, orderNumber: '' });
 
   const filteredCities = wilayaId
     ? communes.filter(c => c.wilaya_id === wilayaId)
@@ -129,7 +130,7 @@ const Checkout = () => {
       
       clearCart();
       
-      navigate(`/order-success/${order.orderNumber}`);
+      setSuccessDialog({ open: true, orderNumber: order.orderNumber });
     } catch (error) {
       console.error('Error creating order:', error);
       setErrorDialog({ open: true, message: error.message || 'Failed to place order. Please try again.' });
@@ -354,6 +355,15 @@ const Checkout = () => {
         message={errorDialog.message}
         confirmLabel="Try Again"
         onConfirm={() => setErrorDialog({ open: false, message: '' })}
+      />
+
+      <Dialog
+        isOpen={successDialog.open}
+        type="success"
+        title="Order Placed Successfully!"
+        message={`Thank you for your order! Your order number is ${successDialog.orderNumber}. We've sent a confirmation email to ${formData.email}.`}
+        confirmLabel="Continue Shopping"
+        onConfirm={() => navigate('/')}
       />
     </div>
   );
