@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Package, DollarSign, ShoppingCart, TrendingUp, LogOut, Users } from 'lucide-react';
+import API_BASE_URL from '../../config/api';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch('http://localhost:5001/api/orders/stats', {
+      const response = await fetch(`${API_BASE_URL}/api/orders/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

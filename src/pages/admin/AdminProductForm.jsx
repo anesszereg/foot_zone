@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import API_BASE_URL from '../../config/api';
 
 const AdminProductForm = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const AdminProductForm = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/products/${id}`);
+      const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
       const data = await response.json();
       setFormData({
         ...data,
@@ -124,8 +125,8 @@ const AdminProductForm = () => {
     try {
       const token = localStorage.getItem('adminToken');
       const url = isEdit 
-        ? `http://localhost:5001/api/products/${id}`
-        : 'http://localhost:5001/api/products';
+        ? `${API_BASE_URL}/api/products/${id}`
+        : `${API_BASE_URL}/api/products`;
       
       const method = isEdit ? 'PUT' : 'POST';
 

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingCart, Truck, RotateCcw, Shield } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import API_BASE_URL from '../config/api';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -19,11 +20,11 @@ const ProductDetails = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/products/${id}`);
+      const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
       const data = await response.json();
       setProduct(data);
       
-      const allResponse = await fetch('http://localhost:5001/api/products');
+      const allResponse = await fetch(`${API_BASE_URL}/api/products`);
       const allData = await allResponse.json();
       const related = allData.filter(p => p.brand === data.brand && p._id !== data._id).slice(0, 4);
       setRelatedProducts(related);

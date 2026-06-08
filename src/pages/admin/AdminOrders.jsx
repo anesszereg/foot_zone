@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Filter, Eye, LogOut } from 'lucide-react';
+import API_BASE_URL from '../../config/api';
 
 const AdminOrders = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const AdminOrders = () => {
       if (statusFilter !== 'All') params.append('status', statusFilter);
       if (searchQuery) params.append('search', searchQuery);
 
-      const response = await fetch(`http://localhost:5001/api/orders?${params}`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders?${params}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

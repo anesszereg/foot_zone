@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 
 const HomePage = () => {
   const [selectedBrand, setSelectedBrand] = useState('All');
@@ -24,7 +25,7 @@ const HomePage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/products');
+      const response = await fetch(`${API_BASE_URL}/api/products`);
       const data = await response.json();
       setProducts(data);
     } catch (error) {

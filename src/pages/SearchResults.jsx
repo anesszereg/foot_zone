@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Heart, Grid, List } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const SearchResults = () => {
   const [searchQuery] = useState('Football Gear');
@@ -20,7 +21,7 @@ const SearchResults = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/products');
+      const response = await fetch(`${API_BASE_URL}/api/products`);
       const data = await response.json();
       setProducts(data);
     } catch (error) {

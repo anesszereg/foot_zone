@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import API_BASE_URL from '../config/api';
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
@@ -101,7 +102,7 @@ const Checkout = () => {
         total
       };
 
-      const response = await fetch('http://localhost:5001/api/orders', {
+      const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, LogOut, Mail } from 'lucide-react';
+import API_BASE_URL from '../../config/api';
 
 const AdminOrderDetail = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const AdminOrderDetail = () => {
   const fetchOrder = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/orders/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -51,7 +52,7 @@ const AdminOrderDetail = () => {
 
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await fetch(`http://localhost:5001/api/orders/${id}/status`, {
+      const response = await fetch(`${API_BASE_URL}/api/orders/${id}/status`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

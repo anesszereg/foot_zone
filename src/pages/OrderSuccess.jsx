@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle, Package, Mail, Download } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const OrderSuccess = () => {
   const { orderId } = useParams();
@@ -11,7 +12,7 @@ const OrderSuccess = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/orders/number/${orderId}`);
+        const response = await fetch(`${API_BASE_URL}/api/orders/number/${orderId}`);
         if (response.ok) {
           const data = await response.json();
           setOrder(data);
