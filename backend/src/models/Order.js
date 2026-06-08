@@ -26,8 +26,7 @@ const orderSchema = new mongoose.Schema({
   },
   shipping: {
     address: {
-      type: String,
-      required: true
+      type: String
     },
     city: {
       type: String,
@@ -38,8 +37,7 @@ const orderSchema = new mongoose.Schema({
       required: true
     },
     zipCode: {
-      type: String,
-      required: true
+      type: String
     }
   },
   items: [{
