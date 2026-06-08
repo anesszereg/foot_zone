@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AdminNav from '../../components/AdminNav';
 import { Package, Plus, Edit, Trash2, Search } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
@@ -9,7 +9,6 @@ const AdminProducts = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
