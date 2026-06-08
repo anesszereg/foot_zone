@@ -4,40 +4,8 @@ import { motion } from 'framer-motion';
 import { Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import API_BASE_URL from '../config/api';
-
-const ALGERIA_CITIES = [
-  'Adrar', 'Aïn Beïda', 'Aïn Defla', 'Aïn M\'Lila', 'Aïn Oussera', 'Aïn Taya', 'Aïn Témouchent',
-  'Algiers', 'Annaba', 'Arzew',
-  'Bab Ezzouar', 'Baraki', 'Batna', 'Béchar', 'Béjaïa', 'Beni Saf', 'Bir El Djir',
-  'Bir Mourad Raïs', 'Birkhadem', 'Biskra', 'Blida', 'Bordj Bou Arréridj', 'Bordj El Kiffan',
-  'Boufarik', 'Bouira', 'Boumerdès',
-  'Cheraga', 'Chlef', 'Constantine',
-  'Dar El Beïda', 'Djelfa', 'Djanet', 'Draria',
-  'El Eulma', 'El Harrach', 'El Khroub', 'El Oued', 'El Tarf', 'Es Sénia',
-  'Ghardaïa', 'Guelma',
-  'Hussein Dey', 'Illizi', 'In Salah',
-  'Jijel', 'Khenchela', 'Kouba',
-  'Laghouat', 'Larbaa', 'M\'Sila', 'Maghnia', 'Mascara', 'Médéa', 'Mila', 'Mostaganem',
-  'Naâma', 'Oran', 'Ouargla', 'Oum El Bouaghi',
-  'Relizane', 'Rouiba',
-  'Saïda', 'Sétif', 'Sidi Bel Abbès', 'Sidi Moussa', 'Skikda', 'Souk Ahras',
-  'Tamanrasset', 'Tébessa', 'Tiaret', 'Tipaza', 'Tissemsilt', 'Tizi Ouzou', 'Tlemcen', 'Touggourt',
-];
-
-const ALGERIA_WILAYAS = [
-  '01 - Adrar', '02 - Chlef', '03 - Laghouat', '04 - Oum El Bouaghi', '05 - Batna',
-  '06 - Béjaïa', '07 - Biskra', '08 - Béchar', '09 - Blida', '10 - Bouira',
-  '11 - Tamanrasset', '12 - Tébessa', '13 - Tlemcen', '14 - Tiaret', '15 - Tizi Ouzou',
-  '16 - Alger', '17 - Djelfa', '18 - Jijel', '19 - Sétif', '20 - Saïda',
-  '21 - Skikda', '22 - Sidi Bel Abbès', '23 - Annaba', '24 - Guelma', '25 - Constantine',
-  '26 - Médéa', '27 - Mostaganem', '28 - M\'Sila', '29 - Mascara', '30 - Ouargla',
-  '31 - Oran', '32 - El Bayadh', '33 - Illizi', '34 - Bordj Bou Arréridj', '35 - Boumerdès',
-  '36 - El Tarf', '37 - Tindouf', '38 - Tissemsilt', '39 - El Oued', '40 - Khenchela',
-  '41 - Souk Ahras', '42 - Tipaza', '43 - Mila', '44 - Aïn Defla', '45 - Naâma',
-  '46 - Aïn Témouchent', '47 - Ghardaïa', '48 - Relizane', '49 - Timimoun',
-  '50 - Bordj Badji Mokhtar', '51 - Ouled Djellal', '52 - Béni Abbès', '53 - In Salah',
-  '54 - In Guezzam', '55 - Touggourt', '56 - Djanet', '57 - El M\'Ghair', '58 - El Meniaa',
-];
+import wilayas from '../data/wilayas.json';
+import communes from '../data/communes.json';
 
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
@@ -52,9 +20,14 @@ const Checkout = () => {
     state: ''
   });
 
+  const [wilayaId, setWilayaId] = useState('');
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
+  const filteredCities = wilayaId
+    ? communes.filter(c => c.wilaya_id === wilayaId)
+    : [];
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -64,6 +37,13 @@ const Checkout = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'wilayaId') {
+      const selected = wilayas.find(w => w.id === value);
+      setWilayaId(value);
+      setFormData(prev => ({ ...prev, state: selected ? `${selected.code} - ${selected.name}` : '', city: '' }));
+      setErrors(prev => ({ ...prev, state: '', city: '' }));
+      return;
+    }
     setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
@@ -247,34 +227,35 @@ const Checkout = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
+                    <label className="block text-sm font-semibold mb-2">Wilaya *</label>
+                    <select
+                      name="wilayaId"
+                      value={wilayaId}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 border rounded-lg bg-white ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
+                    >
+                      <option value="">Select Wilaya</option>
+                      {wilayas.map(w => (
+                        <option key={w.id} value={w.id}>{w.code} - {w.name}</option>
+                      ))}
+                    </select>
+                    {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
+                  </div>
+                  <div>
                     <label className="block text-sm font-semibold mb-2">City *</label>
                     <select
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg bg-white ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
+                      disabled={!wilayaId}
+                      className={`w-full px-4 py-3 border rounded-lg bg-white disabled:bg-gray-100 disabled:text-gray-400 ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
                     >
-                      <option value="">Select City</option>
-                      {ALGERIA_CITIES.map(c => (
-                        <option key={c} value={c}>{c}</option>
+                      <option value="">{wilayaId ? 'Select City' : 'Select Wilaya first'}</option>
+                      {filteredCities.map(c => (
+                        <option key={c.id} value={c.name}>{c.name}</option>
                       ))}
                     </select>
                     {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Wilaya *</label>
-                    <select
-                      name="state"
-                      value={formData.state}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg bg-white ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
-                    >
-                      <option value="">Select Wilaya</option>
-                      {ALGERIA_WILAYAS.map(w => (
-                        <option key={w} value={w}>{w}</option>
-                      ))}
-                    </select>
-                    {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
                   </div>
                 </div>
               </motion.div>
