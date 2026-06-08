@@ -72,13 +72,15 @@ const HomePage = () => {
           >
             <h1 className="font-display font-black text-white leading-none mb-4" style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}>FOOT<span className="text-fz-green">ZONE</span></h1>
             <p className="text-xl md:text-2xl mb-8 text-white/70 font-light">Premium Football Gear · Algeria</p>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-fz-green text-fz-dark px-10 py-4 rounded-xl text-sm font-black uppercase tracking-wider hover:bg-fz-neon transition-colors duration-200 shadow-lg"
-            >
-              Shop Now
-            </motion.button>
+            <Link to="/search">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-fz-green text-fz-dark px-10 py-4 rounded-xl text-sm font-black uppercase tracking-wider hover:bg-fz-neon transition-colors duration-200 shadow-lg"
+              >
+                Shop Now
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </motion.section>

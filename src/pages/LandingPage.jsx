@@ -111,7 +111,7 @@ const LandingPage = () => {
               transition={{ delay: 0.55 }}
               className="flex flex-wrap gap-4"
             >
-              <Link to="/">
+              <Link to="/search">
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
@@ -273,7 +273,7 @@ const LandingPage = () => {
           </div>
 
           <div className="text-center mt-14">
-            <Link to="/">
+            <Link to="/search">
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
@@ -309,7 +309,7 @@ const LandingPage = () => {
           >
             Get the gear that top Algerian players trust. Free delivery available.
           </motion.p>
-          <Link to="/">
+          <Link to="/search">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
