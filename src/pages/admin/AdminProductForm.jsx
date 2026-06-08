@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import AdminNav from '../../components/AdminNav';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Upload, X, Image } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
 
 const AdminProductForm = () => {
@@ -27,6 +27,7 @@ const AdminProductForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [uploadingIndex, setUploadingIndex] = useState(null);
   const [sizeInput, setSizeInput] = useState('');
   const [sizeStockInput, setSizeStockInput] = useState('');
   const [colorInput, setColorInput] = useState('');
@@ -61,6 +62,31 @@ const AdminProductForm = () => {
     const newImages = [...formData.images];
     newImages[index] = value;
     setFormData(prev => ({ ...prev, images: newImages }));
+  };
+
+  const handleImageFileUpload = async (index, file) => {
+    if (!file) return;
+    setUploadingIndex(index);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const uploadData = new FormData();
+      uploadData.append('image', file);
+      const response = await fetch(`${API_BASE_URL}/api/upload`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: uploadData
+      });
+      if (response.ok) {
+        const { url } = await response.json();
+        handleImageChange(index, url);
+      } else {
+        alert('Failed to upload image');
+      }
+    } catch (err) {
+      alert('Upload error: ' + err.message);
+    } finally {
+      setUploadingIndex(null);
+    }
   };
 
   const addImageField = () => {
@@ -284,33 +310,71 @@ const AdminProductForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Images (URLs)</label>
-              {formData.images.map((image, index) => (
-                <div key={index} className="flex gap-2 mb-2">
-                  <input
-                    type="url"
-                    value={image}
-                    onChange={(e) => handleImageChange(index, e.target.value)}
-                    placeholder="https://example.com/image.jpg"
-                    className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                  />
-                  {formData.images.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeImageField(index)}
-                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-              ))}
+              <label className="block text-sm font-semibold mb-3">Images</label>
+              <div className="space-y-3">
+                {formData.images.map((image, index) => (
+                  <div key={index} className="border rounded-xl p-4 bg-gray-50">
+                    <div className="flex gap-4 items-start">
+                      {/* Preview */}
+                      <div className="w-20 h-20 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden flex-shrink-0 bg-white">
+                        {image ? (
+                          <img src={image} alt="preview" className="w-full h-full object-cover rounded-lg" onError={e => e.target.style.display='none'} />
+                        ) : (
+                          <Image size={24} className="text-gray-300" />
+                        )}
+                      </div>
+
+                      <div className="flex-1 space-y-2">
+                        {/* File upload button */}
+                        <label className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed cursor-pointer transition w-full justify-center text-sm font-semibold ${
+                          uploadingIndex === index
+                            ? 'border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed'
+                            : 'border-black hover:bg-black hover:text-white'
+                        }`}>
+                          <Upload size={16} />
+                          {uploadingIndex === index ? 'Uploading...' : 'Upload from device'}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            disabled={uploadingIndex !== null}
+                            onChange={(e) => e.target.files[0] && handleImageFileUpload(index, e.target.files[0])}
+                          />
+                        </label>
+
+                        {/* URL input */}
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-gray-400 font-semibold uppercase">or URL</span>
+                          <input
+                            type="text"
+                            value={image}
+                            onChange={(e) => handleImageChange(index, e.target.value)}
+                            placeholder="https://example.com/image.jpg"
+                            className="flex-1 px-3 py-1.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black"
+                          />
+                        </div>
+                      </div>
+
+                      {formData.images.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeImageField(index)}
+                          className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition flex-shrink-0"
+                        >
+                          <X size={18} />
+                        </button>
+                      )}
+                    </div>
+                    {index === 0 && <p className="text-xs text-gray-400 mt-2">First image is used as the main product image</p>}
+                  </div>
+                ))}
+              </div>
               <button
                 type="button"
                 onClick={addImageField}
-                className="mt-2 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
+                className="mt-3 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-black hover:text-black w-full transition"
               >
-                + Add Image
+                + Add another image
               </button>
             </div>
 
