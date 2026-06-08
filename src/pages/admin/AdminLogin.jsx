@@ -59,7 +59,7 @@ const AdminLogin = () => {
             <Lock className="text-white" size={32} />
           </div>
           <h1 className="text-3xl font-bold mb-2">Admin Login</h1>
-          <p className="text-gray-600">La Selection Dashboard</p>
+          <p className="text-gray-600">Foot Zone Dashboard</p>
         </div>
 
         {error && (

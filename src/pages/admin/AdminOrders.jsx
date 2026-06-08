@@ -59,7 +59,7 @@ const AdminOrders = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-8">
-              <h1 className="text-2xl font-bold">La Selection Admin</h1>
+              <h1 className="text-2xl font-bold">Foot Zone Admin</h1>
               <div className="hidden md:flex gap-6">
                 <Link to="/admin/dashboard" className="text-gray-600 hover:text-black transition">Dashboard</Link>
                 <Link to="/admin/orders" className="font-semibold text-black">Orders</Link>

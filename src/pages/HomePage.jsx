@@ -70,12 +70,12 @@ const HomePage = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-7xl font-bold mb-4 tracking-tight">La Selection</h1>
-            <p className="text-2xl md:text-3xl mb-8 font-light">Premium Football Gear</p>
+            <h1 className="font-display font-black text-white leading-none mb-4" style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}>FOOT<span className="text-fz-green">ZONE</span></h1>
+            <p className="text-xl md:text-2xl mb-8 text-white/70 font-light">Premium Football Gear · Algeria</p>
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-black px-10 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg"
+              className="bg-fz-green text-fz-dark px-10 py-4 rounded-xl text-sm font-black uppercase tracking-wider hover:bg-fz-neon transition-colors duration-200 shadow-lg"
             >
               Shop Now
             </motion.button>
@@ -119,16 +119,16 @@ const HomePage = () => {
         </motion.div>
 
         <div className="flex flex-wrap gap-3 justify-center mb-8">
-          <button onClick={() => setSelectedBrand('All')} className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${selectedBrand === 'All' ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}`}>All Brands</button>
+          <button onClick={() => setSelectedBrand('All')} className={`px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${selectedBrand === 'All' ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>All Brands</button>
           {brands.map(brand => (
-            <button key={brand} onClick={() => setSelectedBrand(brand)} className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${selectedBrand === brand ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}`}>{brand}</button>
+            <button key={brand} onClick={() => setSelectedBrand(brand)} className={`px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${selectedBrand === brand ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{brand}</button>
           ))}
         </div>
 
         <div className="flex flex-wrap gap-2 justify-center mb-12">
-          <button onClick={() => setSelectedSize('All')} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${selectedSize === 'All' ? 'bg-black text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>All Sizes</button>
+          <button onClick={() => setSelectedSize('All')} className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${selectedSize === 'All' ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>All Sizes</button>
           {sizes.map(size => (
-            <button key={size} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${selectedSize === size ? 'bg-black text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{size}</button>
+            <button key={size} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${selectedSize === size ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{size}</button>
           ))}
         </div>
 
@@ -162,7 +162,7 @@ const HomePage = () => {
 
         <div className="text-center">
           <Link to="/search">
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black text-white px-10 py-4 rounded-lg font-semibold hover:bg-gray-900 transition-all duration-300 shadow-lg">
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-fz-dark text-white px-10 py-4 rounded-xl font-black text-sm uppercase tracking-wider hover:bg-fz-gray transition-all duration-300 shadow-lg">
               Plus de Produit
             </motion.button>
           </Link>

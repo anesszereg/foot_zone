@@ -84,7 +84,7 @@ const AdminProducts = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-8">
-              <h1 className="text-xl font-bold">La Selection Admin</h1>
+              <h1 className="text-xl font-bold">Foot Zone Admin</h1>
               <div className="flex space-x-4">
                 <Link to="/admin/dashboard" className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
                   Dashboard
