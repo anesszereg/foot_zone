@@ -8,7 +8,9 @@ const Footer = () => {
           <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
           <div className="flex justify-center space-x-6">
             <a 
-              href="#" 
+              href="https://facebook.com" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"
               aria-label="Facebook"
             >
@@ -17,7 +19,9 @@ const Footer = () => {
               </svg>
             </a>
             <a 
-              href="#" 
+              href="https://instagram.com" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"
               aria-label="Instagram"
             >
@@ -26,7 +30,9 @@ const Footer = () => {
               </svg>
             </a>
             <a 
-              href="#" 
+              href="https://wa.me" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"
               aria-label="WhatsApp"
             >

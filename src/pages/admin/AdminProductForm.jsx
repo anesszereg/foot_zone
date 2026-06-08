@@ -33,7 +33,8 @@ const AdminProductForm = () => {
     if (isEdit) {
       fetchProduct();
     }
-  }, [id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, isEdit]);
 
   const fetchProduct = async () => {
     try {

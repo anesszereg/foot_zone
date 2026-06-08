@@ -17,6 +17,7 @@ const AdminOrders = () => {
       return;
     }
     fetchOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, statusFilter, searchQuery]);
 
   const fetchOrders = async () => {
