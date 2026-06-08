@@ -5,6 +5,21 @@ import { Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import API_BASE_URL from '../config/api';
 
+const ALGERIA_WILAYAS = [
+  '01 - Adrar', '02 - Chlef', '03 - Laghouat', '04 - Oum El Bouaghi', '05 - Batna',
+  '06 - Béjaïa', '07 - Biskra', '08 - Béchar', '09 - Blida', '10 - Bouira',
+  '11 - Tamanrasset', '12 - Tébessa', '13 - Tlemcen', '14 - Tiaret', '15 - Tizi Ouzou',
+  '16 - Alger', '17 - Djelfa', '18 - Jijel', '19 - Sétif', '20 - Saïda',
+  '21 - Skikda', '22 - Sidi Bel Abbès', '23 - Annaba', '24 - Guelma', '25 - Constantine',
+  '26 - Médéa', '27 - Mostaganem', '28 - M\'Sila', '29 - Mascara', '30 - Ouargla',
+  '31 - Oran', '32 - El Bayadh', '33 - Illizi', '34 - Bordj Bou Arréridj', '35 - Boumerdès',
+  '36 - El Tarf', '37 - Tindouf', '38 - Tissemsilt', '39 - El Oued', '40 - Khenchela',
+  '41 - Souk Ahras', '42 - Tipaza', '43 - Mila', '44 - Aïn Defla', '45 - Naâma',
+  '46 - Aïn Témouchent', '47 - Ghardaïa', '48 - Relizane', '49 - Timimoun',
+  '50 - Bordj Badji Mokhtar', '51 - Ouled Djellal', '52 - Béni Abbès', '53 - In Salah',
+  '54 - In Guezzam', '55 - Touggourt', '56 - Djanet', '57 - El M\'Ghair', '58 - El Meniaa',
+];
+
 const Checkout = () => {
   const { cartItems, getCartTotal, clearCart } = useCart();
   const navigate = useNavigate();
@@ -72,8 +87,8 @@ const Checkout = () => {
 
     try {
       const subtotal = getCartTotal();
-      const tax = subtotal * 0.19;
-      const total = subtotal + tax;
+      const tax = 0;
+      const total = subtotal;
 
       const orderData = {
         customer: {
@@ -242,14 +257,18 @@ const Checkout = () => {
                     {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2">State *</label>
-                    <input
-                      type="text"
+                    <label className="block text-sm font-semibold mb-2">Wilaya *</label>
+                    <select
                       name="state"
                       value={formData.state}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
-                    />
+                      className={`w-full px-4 py-3 border rounded-lg bg-white ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
+                    >
+                      <option value="">Select Wilaya</option>
+                      {ALGERIA_WILAYAS.map(w => (
+                        <option key={w} value={w}>{w}</option>
+                      ))}
+                    </select>
                     {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
                   </div>
                   <div>
@@ -325,16 +344,12 @@ const Checkout = () => {
                     <span>Shipping</span>
                     <span className="font-semibold text-green-600">Free</span>
                   </div>
-                  <div className="flex justify-between text-gray-600">
-                    <span>Tax (19%)</span>
-                    <span className="font-semibold">{(getCartTotal() * 0.19).toLocaleString()} DZD</span>
-                  </div>
                 </div>
 
                 <div className="border-t pt-4 mb-6">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold">Total</span>
-                    <span className="text-2xl font-bold">{(getCartTotal() * 1.19).toLocaleString()} DZD</span>
+                    <span className="text-2xl font-bold">{getCartTotal().toLocaleString()} DZD</span>
                   </div>
                 </div>
 
@@ -380,13 +395,9 @@ const Checkout = () => {
                   <span className="text-gray-600">Subtotal</span>
                   <span className="font-semibold">{getCartTotal().toLocaleString()} DZD</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Tax (19%)</span>
-                  <span className="font-semibold">{(getCartTotal() * 0.19).toLocaleString()} DZD</span>
-                </div>
                 <div className="border-t pt-3 flex justify-between">
                   <span className="font-bold">Total</span>
-                  <span className="text-xl font-bold">{(getCartTotal() * 1.19).toLocaleString()} DZD</span>
+                  <span className="text-xl font-bold">{getCartTotal().toLocaleString()} DZD</span>
                 </div>
               </div>
             </div>
