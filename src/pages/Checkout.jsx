@@ -5,6 +5,25 @@ import { Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import API_BASE_URL from '../config/api';
 
+const ALGERIA_CITIES = [
+  'Adrar', 'Aïn Beïda', 'Aïn Defla', 'Aïn M\'Lila', 'Aïn Oussera', 'Aïn Taya', 'Aïn Témouchent',
+  'Algiers', 'Annaba', 'Arzew',
+  'Bab Ezzouar', 'Baraki', 'Batna', 'Béchar', 'Béjaïa', 'Beni Saf', 'Bir El Djir',
+  'Bir Mourad Raïs', 'Birkhadem', 'Biskra', 'Blida', 'Bordj Bou Arréridj', 'Bordj El Kiffan',
+  'Boufarik', 'Bouira', 'Boumerdès',
+  'Cheraga', 'Chlef', 'Constantine',
+  'Dar El Beïda', 'Djelfa', 'Djanet', 'Draria',
+  'El Eulma', 'El Harrach', 'El Khroub', 'El Oued', 'El Tarf', 'Es Sénia',
+  'Ghardaïa', 'Guelma',
+  'Hussein Dey', 'Illizi', 'In Salah',
+  'Jijel', 'Khenchela', 'Kouba',
+  'Laghouat', 'Larbaa', 'M\'Sila', 'Maghnia', 'Mascara', 'Médéa', 'Mila', 'Mostaganem',
+  'Naâma', 'Oran', 'Ouargla', 'Oum El Bouaghi',
+  'Relizane', 'Rouiba',
+  'Saïda', 'Sétif', 'Sidi Bel Abbès', 'Sidi Moussa', 'Skikda', 'Souk Ahras',
+  'Tamanrasset', 'Tébessa', 'Tiaret', 'Tipaza', 'Tissemsilt', 'Tizi Ouzou', 'Tlemcen', 'Touggourt',
+];
+
 const ALGERIA_WILAYAS = [
   '01 - Adrar', '02 - Chlef', '03 - Laghouat', '04 - Oum El Bouaghi', '05 - Batna',
   '06 - Béjaïa', '07 - Biskra', '08 - Béchar', '09 - Blida', '10 - Bouira',
@@ -29,10 +48,8 @@ const Checkout = () => {
     lastName: '',
     email: '',
     phone: '',
-    address: '',
     city: '',
-    state: '',
-    zipCode: '',
+    state: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -64,10 +81,8 @@ const Checkout = () => {
       newErrors.email = 'Email is invalid';
     }
     if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
-    if (!formData.address.trim()) newErrors.address = 'Address is required';
     if (!formData.city.trim()) newErrors.city = 'City is required';
-    if (!formData.state.trim()) newErrors.state = 'State is required';
-    if (!formData.zipCode.trim()) newErrors.zipCode = 'Zip code is required';
+    if (!formData.state.trim()) newErrors.state = 'Wilaya is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -98,10 +113,8 @@ const Checkout = () => {
           phone: formData.phone,
         },
         shipping: {
-          address: formData.address,
           city: formData.city,
           state: formData.state,
-          zipCode: formData.zipCode,
         },
         items: cartItems.map(item => ({
           productId: item._id || item.id,
@@ -232,28 +245,20 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Address *</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg ${errors.address ? 'border-red-500' : 'border-gray-300'}`}
-                  />
-                  {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
-                </div>
-
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold mb-2">City *</label>
-                    <input
-                      type="text"
+                    <select
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
-                    />
+                      className={`w-full px-4 py-3 border rounded-lg bg-white ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
+                    >
+                      <option value="">Select City</option>
+                      {ALGERIA_CITIES.map(c => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
                     {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
                   </div>
                   <div>
@@ -271,48 +276,9 @@ const Checkout = () => {
                     </select>
                     {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Zip Code *</label>
-                    <input
-                      type="text"
-                      name="zipCode"
-                      value={formData.zipCode}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg ${errors.zipCode ? 'border-red-500' : 'border-gray-300'}`}
-                    />
-                    {errors.zipCode && <p className="text-red-500 text-xs mt-1">{errors.zipCode}</p>}
-                  </div>
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="bg-white rounded-card shadow-md p-8"
-              >
-                <div className="flex items-center gap-2 mb-6">
-                  <Package size={24} />
-                  <h2 className="text-2xl font-bold">Order Notes</h2>
-                </div>
-
-                <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Special Instructions (Optional)</label>
-                  <textarea
-                    name="notes"
-                    rows="4"
-                    placeholder="Any special delivery instructions or notes..."
-                    className="w-full px-4 py-3 border rounded-lg border-gray-300"
-                  />
-                </div>
-
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <h3 className="font-semibold mb-2 text-sm">Payment Information</h3>
-                  <p className="text-sm text-gray-700">
-                    Payment will be collected upon delivery. You can pay with cash or card when your order arrives.
-                  </p>
-                </div>
-              </motion.div>
             </div>
 
             <div className="lg:col-span-1">
@@ -404,7 +370,7 @@ const Checkout = () => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
               <p className="text-sm text-blue-800">
-                <strong>Shipping to:</strong> {formData.address}, {formData.city}, {formData.state} {formData.zipCode}
+                <strong>Shipping to:</strong> {formData.city}, {formData.state}
               </p>
             </div>
 
