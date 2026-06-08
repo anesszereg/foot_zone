@@ -45,7 +45,7 @@ const sendOrderConfirmation = async (order) => {
       <body>
         <div class="container">
           <div class="header">
-            <h1>LA SÉLECTION</h1>
+            <h1>FOOT ZONE</h1>
             <p>Order Confirmation</p>
           </div>
           
@@ -134,7 +134,7 @@ const sendOrderStatusUpdate = async (order, newStatus) => {
       <body>
         <div class="container">
           <div class="header">
-            <h1>LA SÉLECTION</h1>
+            <h1>FOOT ZONE</h1>
             <p>Order Status Update</p>
           </div>
           
@@ -153,7 +153,7 @@ const sendOrderStatusUpdate = async (order, newStatus) => {
           </div>
           
           <div class="footer">
-            <p>© 2024 La Selection. All rights reserved.</p>
+            <p>© 2026 Foot Zone. All rights reserved.</p>
           </div>
         </div>
       </body>
