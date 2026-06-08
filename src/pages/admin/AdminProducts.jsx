@@ -11,7 +11,6 @@ const AdminProducts = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [dialog, setDialog] = useState({ open: false });
-  const [pendingDeleteId, setPendingDeleteId] = useState(null);
   const openDialog = (cfg) => setDialog({ open: true, ...cfg });
   const closeDialog = () => setDialog({ open: false });
 
@@ -37,7 +36,6 @@ const AdminProducts = () => {
   };
 
   const handleDelete = (id) => {
-    setPendingDeleteId(id);
     openDialog({
       type: 'confirm',
       title: 'Delete Product',
@@ -45,13 +43,12 @@ const AdminProducts = () => {
       confirmLabel: 'Delete',
       cancelLabel: 'Cancel',
       onConfirm: () => confirmDelete(id),
-      onCancel: () => { closeDialog(); setPendingDeleteId(null); }
+      onCancel: closeDialog
     });
   };
 
   const confirmDelete = async (id) => {
     closeDialog();
-    setPendingDeleteId(null);
     try {
       const token = localStorage.getItem('adminToken');
       const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
