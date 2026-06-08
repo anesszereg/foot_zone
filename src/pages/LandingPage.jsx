@@ -158,7 +158,7 @@ const LandingPage = () => {
 
       {/* ── PERKS ── */}
       <section className="bg-fz-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
           {perks.map((perk, i) => (
             <motion.div
               key={perk.title}
@@ -184,13 +184,13 @@ const LandingPage = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-between items-end mb-14"
+          className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-10 sm:mb-14"
         >
           <div>
             <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">Our Partners</p>
-            <h2 className="font-display font-black text-5xl md:text-6xl uppercase">Top Brands</h2>
+            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase">Top Brands</h2>
           </div>
-          <Link to="/search" className="hidden md:inline-flex items-center gap-2 text-sm font-bold hover:text-fz-green transition-colors">
+          <Link to="/search" className="inline-flex items-center gap-2 text-sm font-bold hover:text-fz-green transition-colors">
             View All <ArrowRight size={16} />
           </Link>
         </motion.div>
@@ -233,11 +233,11 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="flex justify-between items-end mb-14"
+            className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-10 sm:mb-14"
           >
             <div>
               <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">Fresh Arrivals</p>
-              <h2 className="font-display font-black text-5xl md:text-6xl uppercase">Latest Drops</h2>
+              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase">Latest Drops</h2>
             </div>
           </motion.div>
 
@@ -287,7 +287,7 @@ const LandingPage = () => {
       </section>
 
       {/* ── CTA BANNER ── */}
-      <section className="relative overflow-hidden bg-fz-dark py-24 px-6">
+      <section className="relative overflow-hidden bg-fz-dark py-16 sm:py-24 px-4 sm:px-6">
         <div className="absolute inset-0 opacity-10"
           style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&q=60)', backgroundSize: 'cover', backgroundPosition: 'center' }}
         />
@@ -296,7 +296,7 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display font-black text-white text-5xl md:text-7xl uppercase mb-6 leading-none"
+            className="font-display font-black text-white text-4xl sm:text-5xl md:text-7xl uppercase mb-6 leading-none"
           >
             Ready to<br /><span className="text-fz-green">Dominate?</span>
           </motion.h2>

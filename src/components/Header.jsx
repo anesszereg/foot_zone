@@ -10,9 +10,9 @@ const Header = () => {
 
   const navLinks = [
     { label: 'Shop', to: '/search' },
-    { label: 'Adidas', to: '/search' },
-    { label: 'Puma', to: '/search' },
-    { label: 'New Balance', to: '/search' },
+    { label: 'Adidas', to: '/search?brand=Adidas' },
+    { label: 'Puma', to: '/search?brand=Puma' },
+    { label: 'New Balance', to: '/search?brand=New Balance' },
   ];
 
   return (

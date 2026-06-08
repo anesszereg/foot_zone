@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import AdminNav from '../../components/AdminNav';
 import { motion } from 'framer-motion';
-import { Search, Filter, Eye, LogOut } from 'lucide-react';
+import { Search, Filter, Eye } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
 
 const AdminOrders = () => {
@@ -45,37 +46,12 @@ const AdminOrders = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    navigate('/admin/login');
-  };
 
   const statuses = ['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-8">
-              <h1 className="text-2xl font-bold">Foot Zone Admin</h1>
-              <div className="hidden md:flex gap-6">
-                <Link to="/admin/dashboard" className="text-gray-600 hover:text-black transition">Dashboard</Link>
-                <Link to="/admin/orders" className="font-semibold text-black">Orders</Link>
-                <Link to="/admin/products" className="text-gray-600 hover:text-black transition">Products</Link>
-              </div>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition"
-            >
-              <LogOut size={20} />
-              <span>Logout</span>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <AdminNav />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">

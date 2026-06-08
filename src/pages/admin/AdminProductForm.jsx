@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import AdminNav from '../../components/AdminNav';
 import { ArrowLeft } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
 
@@ -168,37 +169,9 @@ const AdminProductForm = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    navigate('/admin/login');
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-8">
-              <h1 className="text-xl font-bold">Foot Zone Admin</h1>
-              <div className="flex space-x-4">
-                <Link to="/admin/dashboard" className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                  Dashboard
-                </Link>
-                <Link to="/admin/orders" className="text-gray-600 hover:text-black px-3 py-2 rounded-md text-sm font-medium">
-                  Orders
-                </Link>
-                <Link to="/admin/products" className="text-black border-b-2 border-black px-3 py-2 rounded-md text-sm font-medium">
-                  Products
-                </Link>
-              </div>
-            </div>
-            <button onClick={handleLogout} className="text-red-600 hover:text-red-700 text-sm font-medium">
-              Logout
-            </button>
-          </div>
-        </div>
-      </nav>
+      <AdminNav />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link to="/admin/products" className="flex items-center gap-2 text-gray-600 hover:text-black mb-6">

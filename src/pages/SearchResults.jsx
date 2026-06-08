@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Heart, Grid, List } from 'lucide-react';
 import API_BASE_URL from '../config/api';
 
 const SearchResults = () => {
+  const [searchParams] = useSearchParams();
   const [searchQuery] = useState('Football Gear');
-  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState(() => {
+    const brand = searchParams.get('brand');
+    return brand ? [brand] : [];
+  });
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedSizes, setSelectedSizes] = useState([]);
@@ -18,6 +22,12 @@ const SearchResults = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const brand = searchParams.get('brand');
+    if (brand) setSelectedBrands([brand]);
+    else setSelectedBrands([]);
+  }, [searchParams]);
 
   const fetchProducts = async () => {
     try {
