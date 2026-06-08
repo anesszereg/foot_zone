@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Heart, ShoppingCart, Truck, RotateCcw, Shield } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import API_BASE_URL from '../config/api';
+import Dialog from '../components/Dialog';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -12,6 +13,9 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [dialog, setDialog] = useState({ open: false });
+  const openDialog = (cfg) => setDialog({ open: true, ...cfg });
+  const closeDialog = () => setDialog({ open: false });
 
   useEffect(() => {
     fetchProduct();
@@ -66,16 +70,16 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert('Please select a size');
+      openDialog({ type: 'warning', title: 'Select a size', message: 'Please choose a size before adding to cart.', onConfirm: closeDialog });
       return;
     }
     addToCart(product, selectedSize, quantity);
-    alert('Added to cart!');
+    openDialog({ type: 'success', title: 'Added to cart!', message: `${product.name} (Size ${selectedSize}) was added to your cart.`, onConfirm: closeDialog });
   };
 
   const handleBuyNow = () => {
     if (!selectedSize) {
-      alert('Please select a size');
+      openDialog({ type: 'warning', title: 'Select a size', message: 'Please choose a size before continuing.', onConfirm: closeDialog });
       return;
     }
     addToCart(product, selectedSize, quantity);
@@ -384,6 +388,15 @@ const ProductDetails = () => {
           </div>
         )}
       </div>
+
+      <Dialog
+        isOpen={dialog.open}
+        type={dialog.type}
+        title={dialog.title}
+        message={dialog.message}
+        onConfirm={dialog.onConfirm}
+        confirmLabel="OK"
+      />
     </div>
   );
 };

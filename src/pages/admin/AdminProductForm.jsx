@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import AdminNav from '../../components/AdminNav';
+import Dialog from '../../components/Dialog';
 import { ArrowLeft, Upload, X, Image } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
 
@@ -28,6 +29,9 @@ const AdminProductForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [uploadingIndex, setUploadingIndex] = useState(null);
+  const [dialog, setDialog] = useState({ open: false });
+  const openDialog = (cfg) => setDialog({ open: true, ...cfg });
+  const closeDialog = () => setDialog({ open: false });
   const [sizeInput, setSizeInput] = useState('');
   const [sizeStockInput, setSizeStockInput] = useState('');
   const [colorInput, setColorInput] = useState('');
@@ -80,10 +84,10 @@ const AdminProductForm = () => {
         const { url } = await response.json();
         handleImageChange(index, url);
       } else {
-        alert('Failed to upload image');
+        openDialog({ type: 'error', title: 'Upload Failed', message: 'Could not upload image. Please try again.', onConfirm: closeDialog });
       }
     } catch (err) {
-      alert('Upload error: ' + err.message);
+      openDialog({ type: 'error', title: 'Upload Error', message: err.message, onConfirm: closeDialog });
     } finally {
       setUploadingIndex(null);
     }
@@ -181,15 +185,14 @@ const AdminProductForm = () => {
       });
 
       if (response.ok) {
-        alert(isEdit ? 'Product updated successfully!' : 'Product created successfully!');
-        navigate('/admin/products');
+        openDialog({ type: 'success', title: isEdit ? 'Product Updated!' : 'Product Created!', message: 'Redirecting to products list...', onConfirm: () => navigate('/admin/products') });
       } else {
         const error = await response.json();
-        alert(`Error: ${error.message || 'Failed to save product'}`);
+        openDialog({ type: 'error', title: 'Save Failed', message: error.message || 'Failed to save product', onConfirm: closeDialog });
       }
     } catch (error) {
       console.error('Error saving product:', error);
-      alert('Error saving product');
+      openDialog({ type: 'error', title: 'Error', message: 'An error occurred while saving the product.', onConfirm: closeDialog });
     } finally {
       setLoading(false);
     }
@@ -506,6 +509,14 @@ const AdminProductForm = () => {
           </form>
         </div>
       </div>
+      <Dialog
+        isOpen={dialog.open}
+        type={dialog.type}
+        title={dialog.title}
+        message={dialog.message}
+        onConfirm={dialog.onConfirm}
+        confirmLabel="OK"
+      />
     </div>
   );
 };

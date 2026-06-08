@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminNav from '../../components/AdminNav';
+import Dialog from '../../components/Dialog';
 import { Package, Plus, Edit, Trash2, Search } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
 
@@ -9,6 +10,10 @@ const AdminProducts = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [dialog, setDialog] = useState({ open: false });
+  const [pendingDeleteId, setPendingDeleteId] = useState(null);
+  const openDialog = (cfg) => setDialog({ open: true, ...cfg });
+  const closeDialog = () => setDialog({ open: false });
 
   useEffect(() => {
     fetchProducts();
@@ -31,27 +36,36 @@ const AdminProducts = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
+  const handleDelete = (id) => {
+    setPendingDeleteId(id);
+    openDialog({
+      type: 'confirm',
+      title: 'Delete Product',
+      message: 'Are you sure you want to delete this product? This action cannot be undone.',
+      confirmLabel: 'Delete',
+      cancelLabel: 'Cancel',
+      onConfirm: () => confirmDelete(id),
+      onCancel: () => { closeDialog(); setPendingDeleteId(null); }
+    });
+  };
 
+  const confirmDelete = async (id) => {
+    closeDialog();
+    setPendingDeleteId(null);
     try {
       const token = localStorage.getItem('adminToken');
       const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
-
       if (response.ok) {
-        alert('Product deleted successfully');
-        fetchProducts();
+        openDialog({ type: 'success', title: 'Deleted!', message: 'Product was deleted successfully.', onConfirm: () => { closeDialog(); fetchProducts(); } });
       } else {
-        alert('Failed to delete product');
+        openDialog({ type: 'error', title: 'Delete Failed', message: 'Could not delete the product.', onConfirm: closeDialog });
       }
     } catch (error) {
       console.error('Error deleting product:', error);
-      alert('Error deleting product');
+      openDialog({ type: 'error', title: 'Error', message: 'An error occurred while deleting the product.', onConfirm: closeDialog });
     }
   };
 
@@ -203,6 +217,16 @@ const AdminProducts = () => {
           )}
         </div>
       </div>
+      <Dialog
+        isOpen={dialog.open}
+        type={dialog.type}
+        title={dialog.title}
+        message={dialog.message}
+        confirmLabel={dialog.confirmLabel || 'OK'}
+        cancelLabel={dialog.cancelLabel}
+        onConfirm={dialog.onConfirm}
+        onCancel={dialog.onCancel}
+      />
     </div>
   );
 };

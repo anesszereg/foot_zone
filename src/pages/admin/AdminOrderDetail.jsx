@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import AdminNav from '../../components/AdminNav';
+import Dialog from '../../components/Dialog';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Mail } from 'lucide-react';
 import API_BASE_URL from '../../config/api';
@@ -12,6 +13,9 @@ const AdminOrderDetail = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [newStatus, setNewStatus] = useState('');
+  const [dialog, setDialog] = useState({ open: false });
+  const openDialog = (cfg) => setDialog({ open: true, ...cfg });
+  const closeDialog = () => setDialog({ open: false });
   const [trackingNumber, setTrackingNumber] = useState('');
   const [note, setNote] = useState('');
 
@@ -68,12 +72,10 @@ const AdminOrderDetail = () => {
 
       if (!response.ok) throw new Error('Failed to update order');
 
-      alert('Order updated successfully! Customer has been notified via email.');
-      fetchOrder();
-      setNote('');
+      openDialog({ type: 'success', title: 'Order Updated!', message: 'The order status was updated and the customer has been notified via email.', onConfirm: () => { closeDialog(); fetchOrder(); setNote(''); } });
     } catch (error) {
       console.error('Error updating order:', error);
-      alert('Failed to update order');
+      openDialog({ type: 'error', title: 'Update Failed', message: 'Could not update the order. Please try again.', onConfirm: closeDialog });
     } finally {
       setUpdating(false);
     }
@@ -284,6 +286,17 @@ const AdminOrderDetail = () => {
           </div>
         </div>
       </div>
+
+      <Dialog
+        isOpen={dialog.open}
+        type={dialog.type}
+        title={dialog.title}
+        message={dialog.message}
+        confirmLabel={dialog.confirmLabel || 'OK'}
+        cancelLabel={dialog.cancelLabel}
+        onConfirm={dialog.onConfirm}
+        onCancel={dialog.onCancel}
+      />
     </div>
   );
 };

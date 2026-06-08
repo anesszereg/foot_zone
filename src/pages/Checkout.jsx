@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Package } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import API_BASE_URL from '../config/api';
+import Dialog from '../components/Dialog';
 import wilayas from '../data/wilayas.json';
 import communes from '../data/communes.json';
 
@@ -24,6 +24,7 @@ const Checkout = () => {
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [errorDialog, setErrorDialog] = useState({ open: false, message: '' });
 
   const filteredCities = wilayaId
     ? communes.filter(c => c.wilaya_id === wilayaId)
@@ -131,7 +132,7 @@ const Checkout = () => {
       navigate(`/order-success/${order.orderNumber}`);
     } catch (error) {
       console.error('Error creating order:', error);
-      alert('Failed to place order. Please try again.');
+      setErrorDialog({ open: true, message: error.message || 'Failed to place order. Please try again.' });
     } finally {
       setSubmitting(false);
     }
@@ -316,63 +317,44 @@ const Checkout = () => {
         </form>
       </div>
 
-      {/* Confirmation Dialog */}
-      {showConfirmDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-lg shadow-xl max-w-md w-full p-6"
-          >
-            <div className="text-center mb-6">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Package size={32} className="text-green-600" />
-              </div>
-              <h2 className="text-2xl font-bold mb-2">Confirm Your Order</h2>
-              <p className="text-gray-600">Please review your order details before confirming</p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-4 mb-6">
-              <div className="space-y-3">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Items</span>
-                  <span className="font-semibold">{cartItems.reduce((sum, item) => sum + item.quantity, 0)} items</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
-                  <span className="font-semibold">{getCartTotal().toLocaleString()} DZD</span>
-                </div>
-                <div className="border-t pt-3 flex justify-between">
-                  <span className="font-bold">Total</span>
-                  <span className="text-xl font-bold">{getCartTotal().toLocaleString()} DZD</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
-              <p className="text-sm text-blue-800">
-                <strong>Shipping to:</strong> {formData.city}, {formData.state}
-              </p>
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={cancelOrder}
-                className="flex-1 px-6 py-3 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmOrder}
-                disabled={submitting}
-                className="flex-1 px-6 py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all duration-300 disabled:bg-gray-400"
-              >
-                {submitting ? 'Processing...' : 'Confirm Order'}
-              </button>
-            </div>
-          </motion.div>
+      <Dialog
+        isOpen={showConfirmDialog}
+        type="order"
+        title="Confirm Your Order"
+        message="Please review your order details before confirming."
+        confirmLabel={submitting ? 'Processing...' : 'Confirm Order'}
+        cancelLabel="Cancel"
+        onConfirm={confirmOrder}
+        onCancel={cancelOrder}
+        confirmDisabled={submitting}
+      >
+        <div className="bg-gray-50 rounded-xl p-4 mb-1 space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-gray-500">Items</span>
+            <span className="font-semibold">{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-500">Subtotal</span>
+            <span className="font-semibold">{getCartTotal().toLocaleString()} DZD</span>
+          </div>
+          <div className="border-t pt-2 flex justify-between">
+            <span className="font-bold">Total</span>
+            <span className="text-lg font-bold">{getCartTotal().toLocaleString()} DZD</span>
+          </div>
         </div>
-      )}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-sm text-blue-800">
+          <strong>Shipping to:</strong> {formData.city}, {formData.state}
+        </div>
+      </Dialog>
+
+      <Dialog
+        isOpen={errorDialog.open}
+        type="error"
+        title="Order Failed"
+        message={errorDialog.message}
+        confirmLabel="Try Again"
+        onConfirm={() => setErrorDialog({ open: false, message: '' })}
+      />
     </div>
   );
 };
