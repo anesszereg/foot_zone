@@ -88,7 +88,7 @@ const sendOrderConfirmation = async (order) => {
           </div>
           
           <div class="footer">
-            <p>© 2024 La Selection. All rights reserved.</p>
+            <p>© 2026 Foot Zone. All rights reserved.</p>
           </div>
         </div>
       </body>
