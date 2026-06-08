@@ -21,13 +21,17 @@ const ProductDetails = () => {
   const fetchProduct = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/products/${id}`);
+      if (!response.ok) { setLoading(false); return; }
       const data = await response.json();
+      if (!data._id) { setLoading(false); return; }
       setProduct(data);
-      
+
       const allResponse = await fetch(`${API_BASE_URL}/api/products`);
-      const allData = await allResponse.json();
-      const related = allData.filter(p => p.brand === data.brand && p._id !== data._id).slice(0, 4);
-      setRelatedProducts(related);
+      if (allResponse.ok) {
+        const allData = await allResponse.json();
+        const related = allData.filter(p => p.brand === data.brand && p._id !== data._id).slice(0, 4);
+        setRelatedProducts(related);
+      }
     } catch (error) {
       console.error('Error fetching product:', error);
     } finally {
@@ -152,7 +156,7 @@ const ProductDetails = () => {
             <div className="mb-6">
               <label className="block text-sm font-semibold mb-3">COLOR</label>
               <div className="flex gap-3">
-                {product.colors.map((color, index) => (
+                {(product.colors || []).map((color, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedColor(index)}
@@ -171,7 +175,7 @@ const ProductDetails = () => {
             <div className="mb-6">
               <label className="block text-sm font-semibold mb-3">SIZE (EU)</label>
               <div className="grid grid-cols-4 gap-3">
-                {product.sizes.map((sizeObj, idx) => {
+                {(product.sizes || []).map((sizeObj, idx) => {
                   const size = typeof sizeObj === 'string' ? sizeObj : sizeObj.size;
                   const stock = typeof sizeObj === 'object' ? sizeObj.stock : 999;
                   const isOutOfStock = stock === 0;
@@ -294,7 +298,7 @@ const ProductDetails = () => {
               <p className="text-gray-700 mb-6 leading-relaxed">{product.description}</p>
               <h4 className="font-semibold mb-3">Key Features:</h4>
               <ul className="space-y-2">
-                {product.features.map((feature, index) => (
+                {(product.features || []).map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <span className="text-green-600 mt-1">✓</span>
                     <span>{feature}</span>

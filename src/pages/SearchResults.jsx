@@ -256,7 +256,7 @@ const SearchResults = () => {
                     viewMode === 'list' ? 'flex gap-4' : ''
                   }`}
                 >
-                  <Link to={`/product/${product.id}`} className={viewMode === 'list' ? 'w-48' : 'block'}>
+                  <Link to={`/product/${product._id}`} className={viewMode === 'list' ? 'w-48' : 'block'}>
                     <div className={`relative bg-gray-100 overflow-hidden ${viewMode === 'list' ? 'h-full' : 'aspect-square'}`}>
                       {product.badge && (
                         <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">
