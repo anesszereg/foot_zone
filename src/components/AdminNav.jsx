@@ -14,9 +14,9 @@ const AdminNav = () => {
   };
 
   const links = [
-    { label: 'Dashboard', to: '/admin/dashboard', Icon: LayoutDashboard },
-    { label: 'Orders',    to: '/admin/orders',    Icon: Package },
-    { label: 'Products',  to: '/admin/products',  Icon: ShoppingCart },
+    { label: 'Tableau de bord', to: '/admin/dashboard', Icon: LayoutDashboard },
+    { label: 'Commandes',  to: '/admin/orders',    Icon: Package },
+    { label: 'Produits',   to: '/admin/products',  Icon: ShoppingCart },
   ];
 
   const isActive = (to) => location.pathname.startsWith(to);
@@ -52,7 +52,7 @@ const AdminNav = () => {
               className="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-lg transition"
             >
               <LogOut size={16} />
-              Logout
+              Déconnexion
             </button>
             <button
               onClick={() => setMobileOpen(o => !o)}
@@ -86,7 +86,7 @@ const AdminNav = () => {
             className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-semibold text-sm text-red-600 hover:bg-red-50 transition"
           >
             <LogOut size={18} />
-            Logout
+            Déconnexion
           </button>
         </div>
       )}

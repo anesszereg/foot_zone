@@ -9,7 +9,7 @@ const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('Tout');
   const [dialog, setDialog] = useState({ open: false });
   const openDialog = (cfg) => setDialog({ open: true, ...cfg });
   const closeDialog = () => setDialog({ open: false });
@@ -38,10 +38,10 @@ const AdminProducts = () => {
   const handleDelete = (id) => {
     openDialog({
       type: 'confirm',
-      title: 'Delete Product',
-      message: 'Are you sure you want to delete this product? This action cannot be undone.',
-      confirmLabel: 'Delete',
-      cancelLabel: 'Cancel',
+      title: 'Supprimer le produit',
+      message: 'Êtes-vous sûr de vouloir supprimer ce produit ? Cette action est irréversible.',
+      confirmLabel: 'Supprimer',
+      cancelLabel: 'Annuler',
       onConfirm: () => confirmDelete(id),
       onCancel: closeDialog
     });
@@ -56,29 +56,29 @@ const AdminProducts = () => {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {
-        openDialog({ type: 'success', title: 'Deleted!', message: 'Product was deleted successfully.', onConfirm: () => { closeDialog(); fetchProducts(); } });
+        openDialog({ type: 'success', title: 'Supprimé !', message: 'Le produit a été supprimé avec succès.', onConfirm: () => { closeDialog(); fetchProducts(); } });
       } else {
-        openDialog({ type: 'error', title: 'Delete Failed', message: 'Could not delete the product.', onConfirm: closeDialog });
+        openDialog({ type: 'error', title: 'Échec de la suppression', message: 'Impossible de supprimer le produit.', onConfirm: closeDialog });
       }
     } catch (error) {
       console.error('Error deleting product:', error);
-      openDialog({ type: 'error', title: 'Error', message: 'An error occurred while deleting the product.', onConfirm: closeDialog });
+      openDialog({ type: 'error', title: 'Erreur', message: 'Une erreur est survenue lors de la suppression du produit.', onConfirm: closeDialog });
     }
   };
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          product.brand.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+    const matchesCategory = selectedCategory === 'Tout' || product.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const categories = ['All', 'Shoes', 'Apparel', 'Balls', 'Accessories'];
+  const categories = ['Tout', 'Chaussures', 'Vêtements', 'Ballons', 'Accessoires'];
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+        <div className="text-xl">Chargement...</div>
       </div>
     );
   }
@@ -90,15 +90,15 @@ const AdminProducts = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-2xl font-bold">Products</h2>
-            <p className="text-gray-600 mt-1">{filteredProducts.length} products found</p>
+            <h2 className="text-2xl font-bold">Produits</h2>
+            <p className="text-gray-600 mt-1">{filteredProducts.length} produit{filteredProducts.length > 1 ? 's' : ''} trouvé{filteredProducts.length > 1 ? 's' : ''}</p>
           </div>
           <Link
             to="/admin/products/new"
             className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-all duration-300 flex items-center gap-2"
           >
             <Plus size={20} />
-            Add Product
+            Ajouter un produit
           </Link>
         </div>
 
@@ -108,7 +108,7 @@ const AdminProducts = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder="Search products..."
+                placeholder="Rechercher des produits..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
@@ -133,16 +133,16 @@ const AdminProducts = () => {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Product
+                  Produit
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Category
+                  Catégorie
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Brand
+                  Marque
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Price
+                  Prix
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Stock
@@ -182,7 +182,7 @@ const AdminProducts = () => {
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                       product.stock > 10 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                     }`}>
-                      {product.stock} units
+                      {product.stock} unités
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -209,7 +209,7 @@ const AdminProducts = () => {
           {filteredProducts.length === 0 && (
             <div className="text-center py-12">
               <Package size={48} className="mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-500">No products found</p>
+              <p className="text-gray-500">Aucun produit trouvé</p>
             </div>
           )}
         </div>

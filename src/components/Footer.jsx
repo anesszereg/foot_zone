@@ -9,21 +9,21 @@ const Footer = () => {
           <div>
             <Logo size="md" theme="dark" />
             <p className="text-white/50 text-sm mt-4 leading-relaxed max-w-xs">
-              Algeria's #1 destination for premium football gear. From the pitch to the streets.
+              La destination n°1 en Algérie pour l'équipement de football premium. Du terrain à la rue.
             </p>
           </div>
           <div>
-            <h4 className="font-display font-bold uppercase tracking-widest text-white/40 text-xs mb-4">Shop</h4>
+            <h4 className="font-display font-bold uppercase tracking-widest text-white/40 text-xs mb-4">Boutique</h4>
             <ul className="space-y-2 text-sm">
-              {['All Products', 'Adidas', 'Puma', 'New Balance', 'Sale'].map(item => (
+              {[['Tous les produits', '/search'], ['Adidas', '/search?brand=Adidas'], ['Puma', '/search?brand=Puma'], ['New Balance', '/search?brand=New Balance'], ['Soldes', '/search']].map(([item, href]) => (
                 <li key={item}>
-                  <a href="/search" className="text-white/60 hover:text-fz-green transition-colors">{item}</a>
+                  <a href={href} className="text-white/60 hover:text-fz-green transition-colors">{item}</a>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <h4 className="font-display font-bold uppercase tracking-widest text-white/40 text-xs mb-4">Follow Us</h4>
+            <h4 className="font-display font-bold uppercase tracking-widest text-white/40 text-xs mb-4">Suivez-nous</h4>
             <div className="flex gap-4">
             <a 
               href="https://facebook.com" 
@@ -63,8 +63,8 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/30 text-sm">© 2025 Foot Zone. All rights reserved.</p>
-          <p className="text-white/20 text-xs uppercase tracking-widest">Premium Football Gear · Algeria</p>
+          <p className="text-white/30 text-sm">© 2025 Foot Zone. Tous droits réservés.</p>
+          <p className="text-white/20 text-xs uppercase tracking-widest">Équipement de Football Premium · Algérie</p>
         </div>
       </div>
     </footer>

@@ -30,11 +30,11 @@ const AdminLogin = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || 'Connexion échouée');
       }
 
       if (data.user.role !== 'admin') {
-        throw new Error('Access denied. Admin only.');
+        throw new Error('Accès refusé. Réservé aux administrateurs.');
       }
 
       localStorage.setItem('adminToken', data.token);
@@ -58,8 +58,8 @@ const AdminLogin = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-full mb-4">
             <Lock className="text-white" size={32} />
           </div>
-          <h1 className="text-3xl font-bold mb-2">Admin Login</h1>
-          <p className="text-gray-600">Foot Zone Dashboard</p>
+          <h1 className="text-3xl font-bold mb-2">Connexion Admin</h1>
+          <p className="text-gray-600">Tableau de bord Foot Zone</p>
         </div>
 
         {error && (
@@ -70,7 +70,7 @@ const AdminLogin = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Email</label>
+            <label className="block text-sm font-semibold mb-2">E-mail</label>
             <input
               type="email"
               value={formData.email}
@@ -81,7 +81,7 @@ const AdminLogin = () => {
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-semibold mb-2">Password</label>
+            <label className="block text-sm font-semibold mb-2">Mot de passe</label>
             <input
               type="password"
               value={formData.password}
@@ -96,12 +96,12 @@ const AdminLogin = () => {
             disabled={loading}
             className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition disabled:opacity-50"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Connexion...' : 'Se connecter'}
           </button>
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-600">
-          <p>Default credentials:</p>
+          <p>Identifiants par défaut :</p>
           <p className="font-mono text-xs mt-1">admin@laselection.com / admin123</p>
         </div>
       </motion.div>

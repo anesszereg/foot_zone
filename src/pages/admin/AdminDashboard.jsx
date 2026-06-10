@@ -43,14 +43,14 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+        <div className="text-xl">Chargement...</div>
       </div>
     );
   }
 
   const statCards = [
     {
-      label: 'Total Orders',
+      label: 'Commandes totales',
       value: stats?.totalOrders || 0,
       icon: ShoppingCart,
       color: 'blue',
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
       textColor: 'text-blue-600'
     },
     {
-      label: 'Total Revenue',
+      label: 'Chiffre d\'affaires',
       value: `${(stats?.totalRevenue || 0).toLocaleString()} DZD`,
       icon: DollarSign,
       color: 'green',
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
       textColor: 'text-green-600'
     },
     {
-      label: 'Pending Orders',
+      label: 'Commandes en attente',
       value: stats?.pendingOrders || 0,
       icon: Package,
       color: 'yellow',
@@ -74,7 +74,7 @@ const AdminDashboard = () => {
       textColor: 'text-yellow-600'
     },
     {
-      label: 'Delivered',
+      label: 'Livrées',
       value: stats?.deliveredOrders || 0,
       icon: TrendingUp,
       color: 'purple',
@@ -89,8 +89,8 @@ const AdminDashboard = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Dashboard Overview</h2>
-          <p className="text-gray-600">Welcome back! Here's what's happening with your store.</p>
+          <h2 className="text-3xl font-bold mb-2">Vue d'ensemble</h2>
+          <p className="text-gray-600">Bienvenue ! Voici ce qui se passe dans votre boutique.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -120,7 +120,7 @@ const AdminDashboard = () => {
             transition={{ delay: 0.4 }}
             className="bg-white rounded-card shadow-md p-6"
           >
-            <h3 className="text-xl font-bold mb-6">Recent Orders</h3>
+            <h3 className="text-xl font-bold mb-6">Commandes récentes</h3>
             {stats?.recentOrders && stats.recentOrders.length > 0 ? (
               <div className="space-y-4">
                 {stats.recentOrders.map(order => (
@@ -153,13 +153,13 @@ const AdminDashboard = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-600 text-center py-8">No recent orders</p>
+              <p className="text-gray-600 text-center py-8">Aucune commande récente</p>
             )}
             <Link
               to="/admin/orders"
               className="block text-center mt-6 text-sm font-semibold text-blue-600 hover:underline"
             >
-              View All Orders →
+              Voir toutes les commandes →
             </Link>
           </motion.div>
 
@@ -169,29 +169,29 @@ const AdminDashboard = () => {
             transition={{ delay: 0.5 }}
             className="bg-white rounded-card shadow-md p-6"
           >
-            <h3 className="text-xl font-bold mb-6">Quick Actions</h3>
+            <h3 className="text-xl font-bold mb-6">Actions rapides</h3>
             <div className="grid grid-cols-2 gap-4">
               <Link
                 to="/admin/orders"
                 className="p-6 border-2 rounded-lg hover:border-black transition text-center"
               >
                 <Package className="mx-auto mb-3" size={32} />
-                <p className="font-semibold">Manage Orders</p>
+                <p className="font-semibold">Gérer les commandes</p>
               </Link>
               <Link
                 to="/admin/products"
                 className="p-6 border-2 rounded-lg hover:border-black transition text-center"
               >
                 <ShoppingCart className="mx-auto mb-3" size={32} />
-                <p className="font-semibold">Manage Products</p>
+                <p className="font-semibold">Gérer les produits</p>
               </Link>
               <div className="p-6 border-2 rounded-lg hover:border-black transition text-center cursor-pointer">
                 <Users className="mx-auto mb-3" size={32} />
-                <p className="font-semibold">Customers</p>
+                <p className="font-semibold">Clients</p>
               </div>
               <div className="p-6 border-2 rounded-lg hover:border-black transition text-center cursor-pointer">
                 <TrendingUp className="mx-auto mb-3" size={32} />
-                <p className="font-semibold">Analytics</p>
+                <p className="font-semibold">Analytiques</p>
               </div>
             </div>
           </motion.div>

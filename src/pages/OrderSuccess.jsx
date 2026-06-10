@@ -30,7 +30,7 @@ const OrderSuccess = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+        <div className="text-xl">Chargement...</div>
       </div>
     );
   }
@@ -39,8 +39,8 @@ const OrderSuccess = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Order not found</h2>
-          <Link to="/" className="text-blue-600 hover:underline">Return to home</Link>
+          <h2 className="text-2xl font-bold mb-4">Commande introuvable</h2>
+          <Link to="/" className="text-blue-600 hover:underline">Retour à l'accueil</Link>
         </div>
       </div>
     );
@@ -56,8 +56,8 @@ const OrderSuccess = () => {
           className="text-center mb-8"
         >
           <CheckCircle className="mx-auto text-green-600 mb-4" size={80} />
-          <h1 className="text-4xl font-bold mb-2">Order Confirmed!</h1>
-          <p className="text-gray-600 text-lg">Thank you for your purchase</p>
+          <h1 className="text-4xl font-bold mb-2">Commande Confirmée !</h1>
+          <p className="text-gray-600 text-lg">Merci pour votre achat</p>
         </motion.div>
 
         <motion.div
@@ -69,8 +69,8 @@ const OrderSuccess = () => {
           <div className="border-b pb-6 mb-6">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h2 className="text-xl font-bold mb-2">Order #{order.id}</h2>
-                <p className="text-gray-600">Placed on {new Date(order.date).toLocaleDateString()}</p>
+                <h2 className="text-xl font-bold mb-2">Commande #{order.id}</h2>
+                <p className="text-gray-600">Passée le {new Date(order.date).toLocaleDateString('fr-FR')}</p>
               </div>
               <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full font-semibold text-sm">
                 {order.status}
@@ -79,7 +79,7 @@ const OrderSuccess = () => {
 
             <div className="grid grid-cols-2 gap-6">
               <div>
-                <h3 className="font-semibold mb-2">Shipping Address</h3>
+                <h3 className="font-semibold mb-2">Adresse de livraison</h3>
                 <p className="text-gray-600 text-sm">
                   {order.customer.firstName} {order.customer.lastName}<br />
                   {order.shipping.address}<br />
@@ -87,7 +87,7 @@ const OrderSuccess = () => {
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Contact Information</h3>
+                <h3 className="font-semibold mb-2">Informations de contact</h3>
                 <p className="text-gray-600 text-sm">
                   {order.customer.email}<br />
                   {order.customer.phone}
@@ -97,7 +97,7 @@ const OrderSuccess = () => {
           </div>
 
           <div className="mb-6">
-            <h3 className="font-semibold mb-4">Order Items</h3>
+            <h3 className="font-semibold mb-4">Articles commandés</h3>
             <div className="space-y-4">
               {order.items.map(item => (
                 <div key={`${item.id}-${item.selectedSize}`} className="flex gap-4">
@@ -106,7 +106,7 @@ const OrderSuccess = () => {
                   </div>
                   <div className="flex-1">
                     <h4 className="font-semibold">{item.name}</h4>
-                    <p className="text-sm text-gray-600">Size: {item.selectedSize} • Qty: {item.quantity}</p>
+                    <p className="text-sm text-gray-600">Taille : {item.selectedSize} • Qté : {item.quantity}</p>
                   </div>
                   <div className="font-semibold">{item.price}</div>
                 </div>
@@ -117,15 +117,15 @@ const OrderSuccess = () => {
           <div className="border-t pt-6">
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-gray-600">
-                <span>Subtotal</span>
+                <span>Sous-total</span>
                 <span>{order.subtotal.toLocaleString()} DZD</span>
               </div>
               <div className="flex justify-between text-gray-600">
-                <span>Shipping</span>
-                <span className="text-green-600">Free</span>
+                <span>Livraison</span>
+                <span className="text-green-600">Gratuite</span>
               </div>
               <div className="flex justify-between text-gray-600">
-                <span>Tax (19%)</span>
+                <span>TVA (19%)</span>
                 <span>{order.tax.toLocaleString()} DZD</span>
               </div>
             </div>
@@ -144,18 +144,18 @@ const OrderSuccess = () => {
         >
           <div className="bg-white rounded-card shadow-md p-6 text-center">
             <Mail className="mx-auto mb-3 text-blue-600" size={32} />
-            <h3 className="font-semibold mb-2">Email Confirmation</h3>
-            <p className="text-sm text-gray-600">Check your inbox for order details</p>
+            <h3 className="font-semibold mb-2">Confirmation par e-mail</h3>
+            <p className="text-sm text-gray-600">Vérifiez votre boîte mail pour les détails</p>
           </div>
           <div className="bg-white rounded-card shadow-md p-6 text-center">
             <Package className="mx-auto mb-3 text-green-600" size={32} />
-            <h3 className="font-semibold mb-2">Track Your Order</h3>
-            <p className="text-sm text-gray-600">We'll send tracking info soon</p>
+            <h3 className="font-semibold mb-2">Suivre votre commande</h3>
+            <p className="text-sm text-gray-600">Nous vous enverrons les informations de suivi bientôt</p>
           </div>
           <div className="bg-white rounded-card shadow-md p-6 text-center">
             <Download className="mx-auto mb-3 text-purple-600" size={32} />
-            <h3 className="font-semibold mb-2">Download Receipt</h3>
-            <button className="text-sm text-blue-600 hover:underline mt-1">Download PDF</button>
+            <h3 className="font-semibold mb-2">Télécharger le reçu</h3>
+            <button className="text-sm text-blue-600 hover:underline mt-1">Télécharger le PDF</button>
           </div>
         </motion.div>
 
@@ -164,13 +164,13 @@ const OrderSuccess = () => {
             to="/account/orders"
             className="px-8 py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-900 transition"
           >
-            View Order History
+            Voir l'historique des commandes
           </Link>
           <Link
             to="/"
             className="px-8 py-3 border-2 border-black rounded-lg font-semibold hover:bg-gray-50 transition"
           >
-            Continue Shopping
+            Continuer les achats
           </Link>
         </div>
       </div>

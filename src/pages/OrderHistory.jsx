@@ -7,22 +7,22 @@ import { useCart } from '../context/CartContext';
 const OrderHistory = () => {
   const { orders } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState('All');
+  const [statusFilter, setStatusFilter] = useState('Tout');
 
   const filteredOrders = orders.filter(order => {
     const matchesSearch = order.id.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === 'All' || order.status === statusFilter;
+    const matchesStatus = statusFilter === 'Tout' || order.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
-  const statuses = ['All', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+  const statuses = ['Tout', 'En traitement', 'Expédié', 'Livré', 'Annulé'];
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">Order History</h1>
-          <p className="text-gray-600 mt-2">View and track all your orders</p>
+          <h1 className="text-3xl font-bold">Historique des commandes</h1>
+          <p className="text-gray-600 mt-2">Consultez et suivez toutes vos commandes</p>
         </div>
       </div>
 
@@ -33,7 +33,7 @@ const OrderHistory = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder="Search by order number..."
+                placeholder="Rechercher par numéro de commande..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border rounded-lg"
@@ -67,9 +67,9 @@ const OrderHistory = () => {
                 <div className="p-6 border-b bg-gray-50">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                      <h3 className="font-bold text-lg mb-1">Order #{order.id}</h3>
+                      <h3 className="font-bold text-lg mb-1">Commande #{order.id}</h3>
                       <p className="text-sm text-gray-600">
-                        Placed on {new Date(order.date).toLocaleDateString('en-US', {
+                        Passée le {new Date(order.date).toLocaleDateString('fr-FR', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric'
@@ -93,7 +93,7 @@ const OrderHistory = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                      <h4 className="font-semibold mb-2 text-sm text-gray-600">SHIPPING ADDRESS</h4>
+                      <h4 className="font-semibold mb-2 text-sm text-gray-600">ADRESSE DE LIVRAISON</h4>
                       <p className="text-sm">
                         {order.customer.firstName} {order.customer.lastName}<br />
                         {order.shipping.address}<br />
@@ -109,7 +109,7 @@ const OrderHistory = () => {
                     </div>
                   </div>
 
-                  <h4 className="font-semibold mb-4">Order Items ({order.items.length})</h4>
+                  <h4 className="font-semibold mb-4">Articles ({order.items.length})</h4>
                   <div className="space-y-4 mb-6">
                     {order.items.map((item, idx) => (
                       <div key={idx} className="flex gap-4">
@@ -119,7 +119,7 @@ const OrderHistory = () => {
                         <div className="flex-1">
                           <h5 className="font-semibold">{item.name}</h5>
                           <p className="text-sm text-gray-600">
-                            Size: {item.selectedSize} • Quantity: {item.quantity}
+                            Taille : {item.selectedSize} • Quantité : {item.quantity}
                           </p>
                         </div>
                         <div className="font-semibold">{item.price}</div>
@@ -132,13 +132,13 @@ const OrderHistory = () => {
                       to={`/account/orders/${order.id}`}
                       className="flex-1 text-center bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition"
                     >
-                      View Details
+                      Voir les détails
                     </Link>
                     <button className="flex-1 border-2 border-black py-3 rounded-lg font-semibold hover:bg-gray-50 transition">
-                      Track Order
+                      Suivre la commande
                     </button>
                     <button className="flex-1 border-2 border-gray-300 py-3 rounded-lg font-semibold hover:border-black transition">
-                      Reorder
+                      Récommander
                     </button>
                   </div>
                 </div>
@@ -148,17 +148,17 @@ const OrderHistory = () => {
         ) : (
           <div className="bg-white rounded-card shadow-md p-16 text-center">
             <Package className="mx-auto mb-4 text-gray-400" size={64} />
-            <h2 className="text-2xl font-bold mb-2">No orders found</h2>
+            <h2 className="text-2xl font-bold mb-2">Aucune commande trouvée</h2>
             <p className="text-gray-600 mb-6">
-              {searchQuery || statusFilter !== 'All' 
-                ? 'Try adjusting your filters' 
-                : 'Start shopping to see your orders here'}
+              {searchQuery || statusFilter !== 'Tout' 
+                ? 'Essayez de modifier vos filtres' 
+                : 'Commencez à acheter pour voir vos commandes ici'}
             </p>
             <Link
               to="/"
               className="inline-block bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 transition"
             >
-              Start Shopping
+              Commencer les achats
             </Link>
           </div>
         )}

@@ -55,16 +55,16 @@ const Checkout = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!formData.firstName.trim()) newErrors.firstName = 'Le prénom est requis';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Le nom est requis';
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = 'L\'e-mail est requis';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email = 'L\'e-mail est invalide';
     }
-    if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
-    if (!formData.city.trim()) newErrors.city = 'City is required';
-    if (!formData.state.trim()) newErrors.state = 'Wilaya is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Le téléphone est requis';
+    if (!formData.city.trim()) newErrors.city = 'La ville est requise';
+    if (!formData.state.trim()) newErrors.state = 'La wilaya est requise';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -123,7 +123,7 @@ const Checkout = () => {
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Backend error:', errorData);
-        throw new Error(errorData.message || 'Failed to create order');
+        throw new Error(errorData.message || 'Impossible de créer la commande');
       }
 
       const order = await response.json();
@@ -133,7 +133,7 @@ const Checkout = () => {
       setSuccessDialog({ open: true, orderNumber: order.orderNumber });
     } catch (error) {
       console.error('Error creating order:', error);
-      setErrorDialog({ open: true, message: error.message || 'Failed to place order. Please try again.' });
+      setErrorDialog({ open: true, message: error.message || 'Impossible de passer la commande. Veuillez réessayer.' });
     } finally {
       setSubmitting(false);
     }
@@ -151,11 +151,11 @@ const Checkout = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">Checkout</h1>
+          <h1 className="text-3xl font-bold">Passer la commande</h1>
           <div className="flex items-center gap-4 mt-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-semibold">1</div>
-              <span className="font-semibold">Shipping Details</span>
+              <span className="font-semibold">Informations de livraison</span>
             </div>
             <div className="h-px bg-gray-300 w-12"></div>
             <div className="flex items-center gap-2">
@@ -175,11 +175,11 @@ const Checkout = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white rounded-card shadow-md p-8"
               >
-                <h2 className="text-2xl font-bold mb-6">Shipping Information</h2>
+                <h2 className="text-2xl font-bold mb-6">Informations de livraison</h2>
                 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-semibold mb-2">First Name *</label>
+                    <label className="block text-sm font-semibold mb-2">Prénom *</label>
                     <input
                       type="text"
                       name="firstName"
@@ -190,7 +190,7 @@ const Checkout = () => {
                     {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Last Name *</label>
+                    <label className="block text-sm font-semibold mb-2">Nom *</label>
                     <input
                       type="text"
                       name="lastName"
@@ -204,7 +204,7 @@ const Checkout = () => {
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Email *</label>
+                    <label className="block text-sm font-semibold mb-2">E-mail *</label>
                     <input
                       type="email"
                       name="email"
@@ -215,7 +215,7 @@ const Checkout = () => {
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Phone *</label>
+                    <label className="block text-sm font-semibold mb-2">Téléphone *</label>
                     <input
                       type="tel"
                       name="phone"
@@ -236,7 +236,7 @@ const Checkout = () => {
                       onChange={handleChange}
                       className={`w-full px-4 py-3 border rounded-lg bg-white ${errors.state ? 'border-red-500' : 'border-gray-300'}`}
                     >
-                      <option value="">Select Wilaya</option>
+                      <option value="">Sélectionnez la wilaya</option>
                       {wilayas.map(w => (
                         <option key={w.id} value={w.id}>{w.code} - {w.name}</option>
                       ))}
@@ -244,7 +244,7 @@ const Checkout = () => {
                     {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2">City *</label>
+                    <label className="block text-sm font-semibold mb-2">Commune *</label>
                     <select
                       name="city"
                       value={formData.city}
@@ -252,7 +252,7 @@ const Checkout = () => {
                       disabled={!wilayaId}
                       className={`w-full px-4 py-3 border rounded-lg bg-white disabled:bg-gray-100 disabled:text-gray-400 ${errors.city ? 'border-red-500' : 'border-gray-300'}`}
                     >
-                      <option value="">{wilayaId ? 'Select City' : 'Select Wilaya first'}</option>
+                      <option value="">{wilayaId ? 'Sélectionnez la commune' : 'Sélectionnez d\'abord la wilaya'}</option>
                       {filteredCities.map(c => (
                         <option key={c.id} value={c.name}>{c.name}</option>
                       ))}
@@ -266,7 +266,7 @@ const Checkout = () => {
 
             <div className="lg:col-span-1">
               <div className="bg-white rounded-card shadow-md p-6 sticky top-20">
-                <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+                <h2 className="text-xl font-bold mb-6">Récapitulatif</h2>
 
                 <div className="space-y-4 mb-6 max-h-64 overflow-y-auto">
                   {cartItems.map(item => (
@@ -276,8 +276,8 @@ const Checkout = () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="font-semibold text-sm truncate">{item.name}</h4>
-                        <p className="text-xs text-gray-600">Size: {item.selectedSize}</p>
-                        <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
+                        <p className="text-xs text-gray-600">Taille : {item.selectedSize}</p>
+                        <p className="text-xs text-gray-600">Qté : {item.quantity}</p>
                       </div>
                       <div className="text-sm font-semibold">{item.price}</div>
                     </div>
@@ -286,12 +286,12 @@ const Checkout = () => {
 
                 <div className="border-t pt-4 space-y-3 mb-6">
                   <div className="flex justify-between text-gray-600">
-                    <span>Subtotal</span>
+                    <span>Sous-total</span>
                     <span className="font-semibold">{getCartTotal().toLocaleString()} DZD</span>
                   </div>
                   <div className="flex justify-between text-gray-600">
-                    <span>Shipping</span>
-                    <span className="font-semibold text-green-600">Free</span>
+                    <span>Livraison</span>
+                    <span className="font-semibold text-green-600">Gratuite</span>
                   </div>
                 </div>
 
@@ -306,11 +306,11 @@ const Checkout = () => {
                   type="submit"
                   className="w-full bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-900 transition-all duration-300"
                 >
-                  Place Order
+                  Passer la commande
                 </button>
 
                 <p className="text-xs text-gray-600 text-center mt-4">
-                  By placing your order, you agree to our Terms & Conditions
+                  En passant votre commande, vous acceptez nos Conditions Générales de Vente
                 </p>
               </div>
             </div>
@@ -321,21 +321,21 @@ const Checkout = () => {
       <Dialog
         isOpen={showConfirmDialog}
         type="order"
-        title="Confirm Your Order"
-        message="Please review your order details before confirming."
-        confirmLabel={submitting ? 'Processing...' : 'Confirm Order'}
-        cancelLabel="Cancel"
+        title="Confirmer votre commande"
+        message="Veuillez vérifier les détails de votre commande avant de confirmer."
+        confirmLabel={submitting ? 'Traitement...' : 'Confirmer la commande'}
+        cancelLabel="Annuler"
         onConfirm={confirmOrder}
         onCancel={cancelOrder}
         confirmDisabled={submitting}
       >
         <div className="bg-gray-50 rounded-xl p-4 mb-1 space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-500">Items</span>
+            <span className="text-gray-500">Articles</span>
             <span className="font-semibold">{cartItems.reduce((sum, item) => sum + item.quantity, 0)}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">Subtotal</span>
+            <span className="text-gray-500">Sous-total</span>
             <span className="font-semibold">{getCartTotal().toLocaleString()} DZD</span>
           </div>
           <div className="border-t pt-2 flex justify-between">
@@ -344,25 +344,25 @@ const Checkout = () => {
           </div>
         </div>
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-sm text-blue-800">
-          <strong>Shipping to:</strong> {formData.city}, {formData.state}
+          <strong>Livraison à :</strong> {formData.city}, {formData.state}
         </div>
       </Dialog>
 
       <Dialog
         isOpen={errorDialog.open}
         type="error"
-        title="Order Failed"
+        title="Commande échouée"
         message={errorDialog.message}
-        confirmLabel="Try Again"
+        confirmLabel="Réessayer"
         onConfirm={() => setErrorDialog({ open: false, message: '' })}
       />
 
       <Dialog
         isOpen={successDialog.open}
         type="success"
-        title="Order Placed Successfully!"
-        message={`Thank you for your order! Your order number is ${successDialog.orderNumber}. We've sent a confirmation email to ${formData.email}.`}
-        confirmLabel="Continue Shopping"
+        title="Commande passée avec succès !"
+        message={`Merci pour votre commande ! Votre numéro de commande est ${successDialog.orderNumber}. Nous avons envoyé un e-mail de confirmation à ${formData.email}.`}
+        confirmLabel="Continuer les achats"
         onConfirm={() => navigate('/')}
       />
     </div>

@@ -52,7 +52,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading product...</div>
+        <div className="text-xl">Chargement du produit...</div>
       </div>
     );
   }
@@ -61,8 +61,8 @@ const ProductDetails = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Product not found</h2>
-          <Link to="/" className="text-blue-600 hover:underline">Return to home</Link>
+          <h2 className="text-2xl font-bold mb-4">Produit introuvable</h2>
+          <Link to="/" className="text-blue-600 hover:underline">Retour à l'accueil</Link>
         </div>
       </div>
     );
@@ -70,16 +70,16 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      openDialog({ type: 'warning', title: 'Select a size', message: 'Please choose a size before adding to cart.', onConfirm: closeDialog });
+      openDialog({ type: 'warning', title: 'Sélectionnez une taille', message: 'Veuillez choisir une taille avant d\'ajouter au panier.', onConfirm: closeDialog });
       return;
     }
     addToCart(product, selectedSize, quantity);
-    openDialog({ type: 'success', title: 'Added to cart!', message: `${product.name} (Size ${selectedSize}) was added to your cart.`, onConfirm: closeDialog });
+    openDialog({ type: 'success', title: 'Ajouté au panier !', message: `${product.name} (Taille ${selectedSize}) a été ajouté à votre panier.`, onConfirm: closeDialog });
   };
 
   const handleBuyNow = () => {
     if (!selectedSize) {
-      openDialog({ type: 'warning', title: 'Select a size', message: 'Please choose a size before continuing.', onConfirm: closeDialog });
+      openDialog({ type: 'warning', title: 'Sélectionnez une taille', message: 'Veuillez choisir une taille avant de continuer.', onConfirm: closeDialog });
       return;
     }
     addToCart(product, selectedSize, quantity);
@@ -91,9 +91,9 @@ const ProductDetails = () => {
       <div className="bg-white py-4 border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Link to="/" className="hover:text-black">Home</Link>
+            <Link to="/" className="hover:text-black">Accueil</Link>
             <span>/</span>
-            <Link to="/search" className="hover:text-black">Shoes</Link>
+            <Link to="/search" className="hover:text-black">Chaussures</Link>
             <span>/</span>
             <span className="text-black font-medium">{product.name}</span>
           </div>
@@ -151,14 +151,14 @@ const ProductDetails = () => {
                     ★
                   </span>
                 ))}
-                <span className="text-sm text-gray-600 ml-2">({product.reviews || 0} Reviews)</span>
+                <span className="text-sm text-gray-600 ml-2">({product.reviews || 0} Avis)</span>
               </div>
             </div>
 
             <p className="text-gray-700 mb-6 leading-relaxed">{product.description}</p>
 
             <div className="mb-6">
-              <label className="block text-sm font-semibold mb-3">COLOR</label>
+              <label className="block text-sm font-semibold mb-3">COULEUR</label>
               <div className="flex gap-3">
                 {(product.colors || []).map((color, index) => (
                   <button
@@ -177,7 +177,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-semibold mb-3">SIZE (EU)</label>
+              <label className="block text-sm font-semibold mb-3">TAILLE (EU)</label>
               <div className="grid grid-cols-4 gap-3">
                 {(product.sizes || []).map((sizeObj, idx) => {
                   const size = typeof sizeObj === 'string' ? sizeObj : sizeObj.size;
@@ -204,7 +204,7 @@ const ProductDetails = () => {
                         </span>
                       )}
                       {isOutOfStock && (
-                        <span className="text-xs block">Out</span>
+                        <span className="text-xs block">Rupture</span>
                       )}
                     </button>
                   );
@@ -213,7 +213,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="mb-8">
-              <label className="block text-sm font-semibold mb-3">QUANTITY</label>
+              <label className="block text-sm font-semibold mb-3">QUANTITÉ</label>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -242,13 +242,13 @@ const ProductDetails = () => {
                 className="flex-1 bg-white border-2 border-black text-black py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <ShoppingCart size={20} />
-                Add to Cart
+                Ajouter au Panier
               </button>
               <button
                 onClick={handleBuyNow}
                 className="flex-1 bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-900 transition-all duration-300"
               >
-                Buy Now
+                Acheter Maintenant
               </button>
               <button className="w-14 h-14 border-2 rounded-lg hover:bg-gray-50 transition flex items-center justify-center">
                 <Heart size={22} />
@@ -258,30 +258,30 @@ const ProductDetails = () => {
             <div className="grid grid-cols-3 gap-4 mb-8 p-6 bg-gray-50 rounded-card">
               <div className="text-center">
                 <Truck className="mx-auto mb-2" size={24} />
-                <p className="text-xs font-semibold">Free Shipping</p>
-                <p className="text-xs text-gray-600">On orders over 5000 DZD</p>
+                <p className="text-xs font-semibold">Livraison Gratuite</p>
+                <p className="text-xs text-gray-600">Pour les commandes supérieures à 5 000 DZD</p>
               </div>
               <div className="text-center">
                 <RotateCcw className="mx-auto mb-2" size={24} />
-                <p className="text-xs font-semibold">30-Day Returns</p>
-                <p className="text-xs text-gray-600">Easy return policy</p>
+                <p className="text-xs font-semibold">Retours sous 30 jours</p>
+                <p className="text-xs text-gray-600">Politique de retour simple</p>
               </div>
               <div className="text-center">
                 <Shield className="mx-auto mb-2" size={24} />
-                <p className="text-xs font-semibold">2 Year Warranty</p>
-                <p className="text-xs text-gray-600">Quality guaranteed</p>
+                <p className="text-xs font-semibold">Garantie 2 ans</p>
+                <p className="text-xs text-gray-600">Qualité garantie</p>
               </div>
             </div>
 
             <div className={`${product.inStock ? 'text-green-600' : 'text-red-600'} font-semibold mb-4`}>
-              {product.inStock ? '✓ In Stock' : '✗ Out of Stock'}
+              {product.inStock ? '✓ En stock' : '✗ Rupture de stock'}
             </div>
           </div>
         </div>
 
         <div className="bg-white rounded-card p-8 mb-16">
           <div className="flex gap-8 border-b mb-8">
-            {['description', 'specifications', 'reviews'].map(tab => (
+            {[['description', 'Description'], ['specifications', 'Spécifications'], ['reviews', 'Avis']].map(([tab, label]) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -291,16 +291,16 @@ const ProductDetails = () => {
                     : 'text-gray-500 hover:text-black'
                 }`}
               >
-                {tab}
+                {label}
               </button>
             ))}
           </div>
 
           {activeTab === 'description' && (
             <div>
-              <h3 className="text-2xl font-bold mb-4">Precision Control for the Modern Game</h3>
+              <h3 className="text-2xl font-bold mb-4">Contrôle de Précision pour le Jeu Moderne</h3>
               <p className="text-gray-700 mb-6 leading-relaxed">{product.description}</p>
-              <h4 className="font-semibold mb-3">Key Features:</h4>
+              <h4 className="font-semibold mb-3">Caractéristiques Clés :</h4>
               <ul className="space-y-2">
                 {(product.features || []).map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
@@ -315,19 +315,19 @@ const ProductDetails = () => {
           {activeTab === 'specifications' && (
             <div className="grid grid-cols-2 gap-4">
               <div className="border-b py-3">
-                <span className="font-semibold">Brand:</span>
+                <span className="font-semibold">Marque :</span>
                 <span className="ml-4 text-gray-700">{product.brand}</span>
               </div>
               <div className="border-b py-3">
-                <span className="font-semibold">Category:</span>
+                <span className="font-semibold">Catégorie :</span>
                 <span className="ml-4 text-gray-700">{product.category}</span>
               </div>
               <div className="border-b py-3">
-                <span className="font-semibold">Available Sizes:</span>
+                <span className="font-semibold">Tailles disponibles :</span>
                 <span className="ml-4 text-gray-700">{product.sizes.join(', ')}</span>
               </div>
               <div className="border-b py-3">
-                <span className="font-semibold">Colors:</span>
+                <span className="font-semibold">Couleurs :</span>
                 <span className="ml-4 text-gray-700">{product.colors.join(', ')}</span>
               </div>
             </div>
@@ -345,10 +345,10 @@ const ProductDetails = () => {
                       </span>
                     ))}
                   </div>
-                  <p className="text-gray-600">{product.reviews} reviews</p>
+                  <p className="text-gray-600">{product.reviews} avis</p>
                 </div>
               </div>
-              <p className="text-gray-600">Customer reviews will be displayed here.</p>
+              <p className="text-gray-600">Les avis clients seront affichés ici.</p>
             </div>
           )}
         </div>
@@ -356,8 +356,8 @@ const ProductDetails = () => {
         {relatedProducts.length > 0 && (
           <div>
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-3xl font-bold">You May Also Like</h2>
-              <Link to="/search" className="text-sm font-semibold hover:underline">View All</Link>
+              <h2 className="text-3xl font-bold">Vous Aimerez Aussi</h2>
+              <Link to="/search" className="text-sm font-semibold hover:underline">Voir Tout</Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map(relatedProduct => (

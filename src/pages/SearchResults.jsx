@@ -11,7 +11,7 @@ const SearchResults = () => {
     const brand = searchParams.get('brand');
     return brand ? [brand] : [];
   });
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('Tout');
   const [priceRange, setPriceRange] = useState([0, 50000]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [sortBy, setSortBy] = useState('featured');
@@ -42,7 +42,7 @@ const SearchResults = () => {
   };
 
   const brands = ['Adidas', 'Puma', 'New Balance'];
-  const categories = ['All', 'Shoes', 'Balls', 'Socks', 'Apparel'];
+  const categories = ['Tout', 'Chaussures', 'Ballons', 'Chaussettes', 'Vêtements'];
   const sizes = ['38', '39', '40', '41', '42', '43', '44', '45'];
 
   const toggleBrand = (brand) => {
@@ -59,7 +59,7 @@ const SearchResults = () => {
 
   const filteredProducts = products.filter(product => {
     const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
-    const categoryMatch = selectedCategory === 'All' || product.category === selectedCategory;
+    const categoryMatch = selectedCategory === 'Tout' || product.category === selectedCategory;
     const price = product.price;
     const priceMatch = price >= priceRange[0] && price <= priceRange[1];
     const sizeMatch = selectedSizes.length === 0 || product.sizes.some(sizeObj => {
@@ -84,7 +84,7 @@ const SearchResults = () => {
 
   const clearFilters = () => {
     setSelectedBrands([]);
-    setSelectedCategory('All');
+    setSelectedCategory('Tout');
     setPriceRange([0, 50000]);
     setSelectedSizes([]);
   };
@@ -92,7 +92,7 @@ const SearchResults = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading products...</div>
+        <div className="text-xl">Chargement des produits...</div>
       </div>
     );
   }
@@ -101,8 +101,8 @@ const SearchResults = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold mb-2">Search results for "{searchQuery}"</h1>
-          <p className="text-gray-600">{sortedProducts.length} Results Found</p>
+          <h1 className="text-3xl font-bold mb-2">Résultats pour "{searchQuery}"</h1>
+          <p className="text-gray-600">{sortedProducts.length} Résultats trouvés</p>
         </div>
       </div>
 
@@ -112,7 +112,7 @@ const SearchResults = () => {
             onClick={clearFilters}
             className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-all duration-300"
           >
-            Clear All
+            Tout effacer
           </button>
           {categories.map(cat => (
             <button
@@ -132,10 +132,10 @@ const SearchResults = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <aside className="lg:col-span-1">
             <div className="bg-white rounded-card p-6 sticky top-20">
-              <h3 className="text-lg font-bold mb-4">Filters</h3>
+              <h3 className="text-lg font-bold mb-4">Filtres</h3>
 
               <div className="mb-6">
-                <h4 className="font-semibold mb-3">BRAND</h4>
+                <h4 className="font-semibold mb-3">MARQUE</h4>
                 {brands.map(brand => (
                   <label key={brand} className="flex items-center mb-2 cursor-pointer">
                     <input
@@ -153,8 +153,8 @@ const SearchResults = () => {
               </div>
 
               <div className="mb-6">
-                <h4 className="font-semibold mb-3">CATEGORY</h4>
-                {categories.filter(c => c !== 'All').map(cat => (
+                <h4 className="font-semibold mb-3">CATÉGORIE</h4>
+                {categories.filter(c => c !== 'Tout').map(cat => (
                   <label key={cat} className="flex items-center mb-2 cursor-pointer">
                     <input
                       type="radio"
@@ -168,7 +168,7 @@ const SearchResults = () => {
               </div>
 
               <div className="mb-6">
-                <h4 className="font-semibold mb-3">PRICE (DZD)</h4>
+                <h4 className="font-semibold mb-3">PRIX (DZD)</h4>
                 <div className="flex gap-2 mb-2">
                   <input
                     type="number"
@@ -196,7 +196,7 @@ const SearchResults = () => {
               </div>
 
               <div className="mb-6">
-                <h4 className="font-semibold mb-3">SIZE (EU)</h4>
+                <h4 className="font-semibold mb-3">TAILLE (EU)</h4>
                 <div className="grid grid-cols-4 gap-2">
                   {sizes.map(size => (
                     <button
@@ -218,7 +218,7 @@ const SearchResults = () => {
                 onClick={clearFilters}
                 className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition-all duration-300"
               >
-                Apply Filters
+                Appliquer les filtres
               </button>
             </div>
           </aside>
@@ -241,16 +241,16 @@ const SearchResults = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Sort by:</span>
+                <span className="text-sm text-gray-600">Trier par :</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="px-4 py-2 border rounded-lg bg-white"
                 >
-                  <option value="featured">Featured</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="name">Name: A to Z</option>
+                  <option value="featured">Mis en avant</option>
+                  <option value="price-low">Prix : croissant</option>
+                  <option value="price-high">Prix : décroissant</option>
+                  <option value="name">Nom : A à Z</option>
                 </select>
               </div>
             </div>
@@ -319,12 +319,12 @@ const SearchResults = () => {
 
             {sortedProducts.length === 0 && (
               <div className="text-center py-20">
-                <p className="text-xl text-gray-600">No products found matching your filters.</p>
+                <p className="text-xl text-gray-600">Aucun produit ne correspond à vos filtres.</p>
                 <button
                   onClick={clearFilters}
                   className="mt-4 px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-900 transition"
                 >
-                  Clear Filters
+                  Effacer les filtres
                 </button>
               </div>
             )}

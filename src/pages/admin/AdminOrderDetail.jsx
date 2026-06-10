@@ -72,10 +72,10 @@ const AdminOrderDetail = () => {
 
       if (!response.ok) throw new Error('Failed to update order');
 
-      openDialog({ type: 'success', title: 'Order Updated!', message: 'The order status was updated and the customer has been notified via email.', onConfirm: () => { closeDialog(); fetchOrder(); setNote(''); } });
+      openDialog({ type: 'success', title: 'Commande mise à jour !', message: 'Le statut de la commande a été mis à jour et le client a été notifié par e-mail.', onConfirm: () => { closeDialog(); fetchOrder(); setNote(''); } });
     } catch (error) {
       console.error('Error updating order:', error);
-      openDialog({ type: 'error', title: 'Update Failed', message: 'Could not update the order. Please try again.', onConfirm: closeDialog });
+      openDialog({ type: 'error', title: 'Échec de la mise à jour', message: 'Impossible de mettre à jour la commande. Veuillez réessayer.', onConfirm: closeDialog });
     } finally {
       setUpdating(false);
     }
@@ -84,7 +84,7 @@ const AdminOrderDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading...</div>
+        <div className="text-xl">Chargement...</div>
       </div>
     );
   }
@@ -93,9 +93,9 @@ const AdminOrderDetail = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Order not found</h2>
+          <h2 className="text-2xl font-bold mb-4">Commande introuvable</h2>
           <Link to="/admin/orders" className="text-blue-600 hover:underline">
-            Back to orders
+            Retour aux commandes
           </Link>
         </div>
       </div>
@@ -112,7 +112,7 @@ const AdminOrderDetail = () => {
           className="inline-flex items-center gap-2 text-sm font-semibold hover:underline mb-6"
         >
           <ArrowLeft size={16} />
-          Back to Orders
+          Retour aux commandes
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -124,9 +124,9 @@ const AdminOrderDetail = () => {
             >
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">Order {order.orderNumber}</h2>
+                  <h2 className="text-2xl font-bold mb-2">Commande {order.orderNumber}</h2>
                   <p className="text-gray-600">
-                    Placed on {new Date(order.createdAt).toLocaleDateString('en-US', {
+                    Passée le {new Date(order.createdAt).toLocaleDateString('fr-FR', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',
@@ -148,7 +148,7 @@ const AdminOrderDetail = () => {
 
               <div className="grid grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h3 className="font-semibold mb-2 text-sm text-gray-600">CUSTOMER</h3>
+                  <h3 className="font-semibold mb-2 text-sm text-gray-600">CLIENT</h3>
                   <p className="font-medium">{order.customer.firstName} {order.customer.lastName}</p>
                   <p className="text-sm text-gray-600 flex items-center gap-1 mt-1">
                     <Mail size={14} />
@@ -157,7 +157,7 @@ const AdminOrderDetail = () => {
                   <p className="text-sm text-gray-600">{order.customer.phone}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-2 text-sm text-gray-600">SHIPPING ADDRESS</h3>
+                  <h3 className="font-semibold mb-2 text-sm text-gray-600">ADRESSE DE LIVRAISON</h3>
                   <p className="text-sm">
                     {order.shipping.address}<br />
                     {order.shipping.city}, {order.shipping.state} {order.shipping.zipCode}
@@ -165,7 +165,7 @@ const AdminOrderDetail = () => {
                 </div>
               </div>
 
-              <h3 className="font-semibold mb-4">Order Items</h3>
+              <h3 className="font-semibold mb-4">Articles commandés</h3>
               <div className="space-y-4">
                 {order.items.map((item, index) => (
                   <div key={index} className="flex gap-4 pb-4 border-b last:border-b-0">
@@ -174,7 +174,7 @@ const AdminOrderDetail = () => {
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold">{item.name}</h4>
-                      <p className="text-sm text-gray-600">Size: {item.selectedSize} • Qty: {item.quantity}</p>
+                      <p className="text-sm text-gray-600">Taille : {item.selectedSize} • Qté : {item.quantity}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold">{item.price} DZD</p>
@@ -185,11 +185,11 @@ const AdminOrderDetail = () => {
 
               <div className="border-t pt-4 mt-4 space-y-2">
                 <div className="flex justify-between text-gray-600">
-                  <span>Subtotal</span>
+                  <span>Sous-total</span>
                   <span>{order.subtotal.toLocaleString()} DZD</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Tax (19%)</span>
+                  <span>TVA (19%)</span>
                   <span>{order.tax.toLocaleString()} DZD</span>
                 </div>
                 <div className="flex justify-between text-xl font-bold border-t pt-2">
@@ -206,7 +206,7 @@ const AdminOrderDetail = () => {
                 transition={{ delay: 0.1 }}
                 className="bg-white rounded-card shadow-md p-8"
               >
-                <h3 className="font-semibold mb-4">Status History</h3>
+                <h3 className="font-semibold mb-4">Historique des statuts</h3>
                 <div className="space-y-3">
                   {order.statusHistory.map((history, index) => (
                     <div key={index} className="flex gap-4 text-sm">
@@ -231,40 +231,40 @@ const AdminOrderDetail = () => {
               transition={{ delay: 0.2 }}
               className="bg-white rounded-card shadow-md p-6 sticky top-20"
             >
-              <h3 className="font-bold text-lg mb-6">Update Order Status</h3>
+              <h3 className="font-bold text-lg mb-6">Mettre à jour le statut</h3>
               <form onSubmit={handleUpdateStatus}>
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Status</label>
+                  <label className="block text-sm font-semibold mb-2">Statut</label>
                   <select
                     value={newStatus}
                     onChange={(e) => setNewStatus(e.target.value)}
                     className="w-full px-4 py-3 border rounded-lg"
                   >
-                    <option value="Pending">Pending</option>
-                    <option value="Processing">Processing</option>
-                    <option value="Shipped">Shipped</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Cancelled">Cancelled</option>
+                    <option value="Pending">En attente</option>
+                    <option value="Processing">En traitement</option>
+                    <option value="Shipped">Expédié</option>
+                    <option value="Delivered">Livré</option>
+                    <option value="Cancelled">Annulé</option>
                   </select>
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Tracking Number (Optional)</label>
+                  <label className="block text-sm font-semibold mb-2">Numéro de suivi (facultatif)</label>
                   <input
                     type="text"
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
-                    placeholder="Enter tracking number"
+                    placeholder="Entrez le numéro de suivi"
                     className="w-full px-4 py-3 border rounded-lg"
                   />
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Note (Optional)</label>
+                  <label className="block text-sm font-semibold mb-2">Note (facultatif)</label>
                   <textarea
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    placeholder="Add a note about this status update"
+                    placeholder="Ajoutez une note sur cette mise à jour"
                     rows="3"
                     className="w-full px-4 py-3 border rounded-lg"
                   />
@@ -275,11 +275,11 @@ const AdminOrderDetail = () => {
                   disabled={updating}
                   className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition disabled:opacity-50"
                 >
-                  {updating ? 'Updating...' : 'Update & Notify Customer'}
+                  {updating ? 'Mise à jour...' : 'Mettre à jour et notifier le client'}
                 </button>
 
                 <p className="text-xs text-gray-600 mt-3 text-center">
-                  Customer will receive an email notification
+                  Le client recevra une notification par e-mail
                 </p>
               </form>
             </motion.div>

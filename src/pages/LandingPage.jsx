@@ -7,17 +7,17 @@ const LandingPage = () => {
   const brands = [
     {
       name: 'ADIDAS',
-      tag: 'PRECISION CONTROL',
+      tag: 'CONTRÔLE DE PRÉCISION',
       image: 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=600&q=80',
     },
     {
       name: 'PUMA',
-      tag: 'EXPLOSIVE SPEED',
+      tag: 'VITESSE EXPLOSIVE',
       image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&q=80',
     },
     {
       name: 'NEW BALANCE',
-      tag: 'ULTIMATE COMFORT',
+      tag: 'CONFORT ULTIME',
       image: 'https://images.unsplash.com/photo-1539185441755-769473a23570?w=600&q=80',
     },
   ];
@@ -50,13 +50,13 @@ const LandingPage = () => {
   ];
 
   const perks = [
-    { icon: <Truck size={22} />, title: 'Free Delivery', desc: 'On orders over 5,000 DZD' },
-    { icon: <Shield size={22} />, title: '100% Authentic', desc: 'Official brand products' },
-    { icon: <Zap size={22} />, title: 'Fast Dispatch', desc: 'Ships within 24 hours' },
-    { icon: <Star size={22} />, title: 'Top Rated', desc: '4.9★ from 2,000+ reviews' },
+    { icon: <Truck size={22} />, title: 'Livraison Gratuite', desc: 'Pour les commandes supérieures à 5 000 DZD' },
+    { icon: <Shield size={22} />, title: '100% Authentique', desc: 'Produits officiels des marques' },
+    { icon: <Zap size={22} />, title: 'Expédition Rapide', desc: 'Expédié en moins de 24 heures' },
+    { icon: <Star size={22} />, title: 'Très bien Noté', desc: '4,9★ basé sur 2 000+ avis' },
   ];
 
-  const ticker = 'FOOT ZONE • PREMIUM GEAR • TOP BRANDS • ELITE PERFORMANCE • ALGERIA • ';
+  const ticker = 'FOOT ZONE • ÉQUIPEMENT PREMIUM • TOP MARQUES • PERFORMANCE ÉLITE • ALGÉRIE • ';
 
   return (
     <div className="min-h-screen bg-white">
@@ -82,7 +82,7 @@ const LandingPage = () => {
               transition={{ delay: 0.2 }}
               className="inline-flex items-center gap-2 bg-fz-green/20 border border-fz-green/40 text-fz-green text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
             >
-              <Zap size={12} /> New Season 2025
+              <Zap size={12} /> Nouvelle Saison 2025
             </motion.div>
 
             <motion.h1
@@ -102,7 +102,7 @@ const LandingPage = () => {
               transition={{ delay: 0.45 }}
               className="text-white/70 text-lg md:text-xl mb-10 max-w-md leading-relaxed"
             >
-              Algeria's home of premium football boots. Built for players who dominate every match.
+              La référence algérienne en crampons de football premium. Conçu pour les joueurs qui dominent chaque match.
             </motion.p>
 
             <motion.div
@@ -117,7 +117,7 @@ const LandingPage = () => {
                   whileTap={{ scale: 0.96 }}
                   className="bg-fz-green text-fz-dark px-8 py-4 rounded-xl font-black text-sm uppercase tracking-wider hover:bg-fz-neon transition-colors duration-200 inline-flex items-center gap-2"
                 >
-                  Shop Now <ArrowRight size={18} />
+                  Acheter Maintenant <ArrowRight size={18} />
                 </motion.button>
               </Link>
               <Link to="/search">
@@ -126,7 +126,7 @@ const LandingPage = () => {
                   whileTap={{ scale: 0.96 }}
                   className="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider hover:border-white transition-colors duration-200"
                 >
-                  View All
+                  Voir Tout
                 </motion.button>
               </Link>
             </motion.div>
@@ -141,7 +141,7 @@ const LandingPage = () => {
           className="absolute bottom-12 right-8 md:right-16 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 text-white hidden md:block"
         >
           <p className="text-3xl font-display font-black text-fz-green">500+</p>
-          <p className="text-white/60 text-sm mt-1">Products Available</p>
+          <p className="text-white/60 text-sm mt-1">Produits Disponibles</p>
         </motion.div>
       </motion.section>
 
@@ -187,11 +187,11 @@ const LandingPage = () => {
           className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-10 sm:mb-14"
         >
           <div>
-            <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">Our Partners</p>
-            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase">Top Brands</h2>
+            <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">Nos Partenaires</p>
+            <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase">Top Marques</h2>
           </div>
           <Link to="/search" className="inline-flex items-center gap-2 text-sm font-bold hover:text-fz-green transition-colors">
-            View All <ArrowRight size={16} />
+            Voir Tout <ArrowRight size={16} />
           </Link>
         </motion.div>
 
@@ -217,7 +217,7 @@ const LandingPage = () => {
                 <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">{brand.tag}</p>
                 <h3 className="font-display font-black text-white text-4xl mb-4">{brand.name}</h3>
                 <div className="flex items-center gap-2 text-white/70 text-sm font-semibold group-hover:text-fz-green transition-colors">
-                  <span>EXPLORE</span>
+                  <span>EXPLORER</span>
                   <ArrowRight className="group-hover:translate-x-2 transition-transform" size={16} />
                 </div>
               </div>
@@ -236,8 +236,8 @@ const LandingPage = () => {
             className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-10 sm:mb-14"
           >
             <div>
-              <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">Fresh Arrivals</p>
-              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase">Latest Drops</h2>
+              <p className="text-fz-green text-xs font-bold uppercase tracking-widest mb-2">Nouvelles Arrivées</p>
+              <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl uppercase">Dernières Sorties</h2>
             </div>
           </motion.div>
 
@@ -279,7 +279,7 @@ const LandingPage = () => {
                 whileTap={{ scale: 0.96 }}
                 className="bg-fz-dark text-white px-10 py-4 rounded-xl font-black text-sm uppercase tracking-wider hover:bg-fz-gray transition-colors inline-flex items-center gap-2"
               >
-                View All Products <ArrowRight size={18} />
+                Voir Tous les Produits <ArrowRight size={18} />
               </motion.button>
             </Link>
           </div>
@@ -298,7 +298,7 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="font-display font-black text-white text-4xl sm:text-5xl md:text-7xl uppercase mb-6 leading-none"
           >
-            Ready to<br /><span className="text-fz-green">Dominate?</span>
+            Prêt à<br /><span className="text-fz-green">Dominer ?</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -307,7 +307,7 @@ const LandingPage = () => {
             transition={{ delay: 0.2 }}
             className="text-white/50 text-lg mb-10"
           >
-            Get the gear that top Algerian players trust. Free delivery available.
+            Procurez-vous l'équipement en qui les meilleurs joueurs algériens ont confiance. Livraison gratuite disponible.
           </motion.p>
           <Link to="/search">
             <motion.button
@@ -315,7 +315,7 @@ const LandingPage = () => {
               whileTap={{ scale: 0.95 }}
               className="bg-fz-green text-fz-dark px-12 py-5 rounded-xl font-black text-base uppercase tracking-wider hover:bg-fz-neon transition-colors duration-200 inline-flex items-center gap-2"
             >
-              Shop the Collection <ArrowRight size={20} />
+              Acheter la Collection <ArrowRight size={20} />
             </motion.button>
           </Link>
         </div>

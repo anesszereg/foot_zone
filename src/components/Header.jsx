@@ -9,7 +9,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Shop', to: '/search' },
+    { label: 'Boutique', to: '/search' },
     { label: 'Adidas', to: '/search?brand=Adidas' },
     { label: 'Puma', to: '/search?brand=Puma' },
     { label: 'New Balance', to: '/search?brand=New Balance' },
@@ -74,7 +74,7 @@ const Header = () => {
             onClick={() => setMobileOpen(false)}
             className="block text-white/80 hover:text-fz-green font-semibold uppercase tracking-wider text-sm py-2 transition-colors"
           >
-            Cart {getCartCount() > 0 && `(${getCartCount()})`}
+            Panier {getCartCount() > 0 && `(${getCartCount()})`}
           </Link>
         </div>
       )}

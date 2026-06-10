@@ -44,7 +44,7 @@ const HomePage = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Loading products...</div>
+        <div className="text-xl">Chargement des produits...</div>
       </div>
     );
   }
@@ -71,14 +71,14 @@ const HomePage = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             <h1 className="font-display font-black text-white leading-none mb-4" style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}>FOOT<span className="text-fz-green">ZONE</span></h1>
-            <p className="text-xl md:text-2xl mb-8 text-white/70 font-light">Premium Football Gear · Algeria</p>
+            <p className="text-xl md:text-2xl mb-8 text-white/70 font-light">Équipement de Football Premium · Algérie</p>
             <Link to="/search">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-fz-green text-fz-dark px-10 py-4 rounded-xl text-sm font-black uppercase tracking-wider hover:bg-fz-neon transition-colors duration-200 shadow-lg"
               >
-                Shop Now
+                Acheter Maintenant
               </motion.button>
             </Link>
           </motion.div>
@@ -87,7 +87,7 @@ const HomePage = () => {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Our Brands</h2>
+          <h2 className="text-4xl font-bold mb-4">Nos Marques</h2>
         </motion.div>
         <div className="grid grid-cols-3 gap-8 mb-16">
           {brands.map((brand, index) => (
@@ -100,7 +100,7 @@ const HomePage = () => {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Shop by Category</h2>
+          <h2 className="text-4xl font-bold mb-4">Acheter par Catégorie</h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {categories.map((category, index) => (
@@ -117,18 +117,18 @@ const HomePage = () => {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Featured Products</h2>
+          <h2 className="text-4xl font-bold mb-4">Produits en Vedette</h2>
         </motion.div>
 
         <div className="flex flex-wrap gap-3 justify-center mb-8">
-          <button onClick={() => setSelectedBrand('All')} className={`px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${selectedBrand === 'All' ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>All Brands</button>
+          <button onClick={() => setSelectedBrand('All')} className={`px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${selectedBrand === 'All' ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>Toutes les Marques</button>
           {brands.map(brand => (
             <button key={brand} onClick={() => setSelectedBrand(brand)} className={`px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${selectedBrand === brand ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{brand}</button>
           ))}
         </div>
 
         <div className="flex flex-wrap gap-2 justify-center mb-12">
-          <button onClick={() => setSelectedSize('All')} className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${selectedSize === 'All' ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>All Sizes</button>
+          <button onClick={() => setSelectedSize('All')} className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${selectedSize === 'All' ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>Toutes les Tailles</button>
           {sizes.map(size => (
             <button key={size} onClick={() => setSelectedSize(size)} className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${selectedSize === size ? 'bg-fz-dark text-white' : 'bg-gray-100 hover:bg-gray-200'}`}>{size}</button>
           ))}

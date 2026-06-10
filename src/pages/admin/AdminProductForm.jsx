@@ -84,10 +84,10 @@ const AdminProductForm = () => {
         const { url } = await response.json();
         handleImageChange(index, url);
       } else {
-        openDialog({ type: 'error', title: 'Upload Failed', message: 'Could not upload image. Please try again.', onConfirm: closeDialog });
+        openDialog({ type: 'error', title: 'Importation échouée', message: 'Impossible d\'importer l\'image. Veuillez réessayer.', onConfirm: closeDialog });
       }
     } catch (err) {
-      openDialog({ type: 'error', title: 'Upload Error', message: err.message, onConfirm: closeDialog });
+      openDialog({ type: 'error', title: 'Erreur d\'importation', message: err.message, onConfirm: closeDialog });
     } finally {
       setUploadingIndex(null);
     }
@@ -185,14 +185,14 @@ const AdminProductForm = () => {
       });
 
       if (response.ok) {
-        openDialog({ type: 'success', title: isEdit ? 'Product Updated!' : 'Product Created!', message: 'Redirecting to products list...', onConfirm: () => navigate('/admin/products') });
+        openDialog({ type: 'success', title: isEdit ? 'Produit mis à jour !' : 'Produit créé !', message: 'Redirection vers la liste des produits...', onConfirm: () => navigate('/admin/products') });
       } else {
         const error = await response.json();
-        openDialog({ type: 'error', title: 'Save Failed', message: error.message || 'Failed to save product', onConfirm: closeDialog });
+        openDialog({ type: 'error', title: 'Enregistrement échoué', message: error.message || 'Impossible d\'enregistrer le produit', onConfirm: closeDialog });
       }
     } catch (error) {
       console.error('Error saving product:', error);
-      openDialog({ type: 'error', title: 'Error', message: 'An error occurred while saving the product.', onConfirm: closeDialog });
+      openDialog({ type: 'error', title: 'Erreur', message: 'Une erreur est survenue lors de l\'enregistrement du produit.', onConfirm: closeDialog });
     } finally {
       setLoading(false);
     }
@@ -205,16 +205,16 @@ const AdminProductForm = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Link to="/admin/products" className="flex items-center gap-2 text-gray-600 hover:text-black mb-6">
           <ArrowLeft size={20} />
-          Back to Products
+          Retour aux produits
         </Link>
 
         <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold mb-6">{isEdit ? 'Edit Product' : 'Add New Product'}</h2>
+          <h2 className="text-2xl font-bold mb-6">{isEdit ? 'Modifier le produit' : 'Ajouter un nouveau produit'}</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold mb-2">Product Name *</label>
+                <label className="block text-sm font-semibold mb-2">Nom du produit *</label>
                 <input
                   type="text"
                   name="name"
@@ -226,7 +226,7 @@ const AdminProductForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Brand *</label>
+                <label className="block text-sm font-semibold mb-2">Marque *</label>
                 <select
                   name="brand"
                   value={formData.brand}
@@ -234,7 +234,7 @@ const AdminProductForm = () => {
                   required
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 >
-                  <option value="">Select Brand</option>
+                  <option value="">Sélectionnez la marque</option>
                   <option value="Adidas">Adidas</option>
                   <option value="Puma">Puma</option>
                   <option value="New Balance">New Balance</option>
@@ -242,7 +242,7 @@ const AdminProductForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Price (DZD) *</label>
+                <label className="block text-sm font-semibold mb-2">Prix (DZD) *</label>
                 <input
                   type="number"
                   name="price"
@@ -256,7 +256,7 @@ const AdminProductForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Category *</label>
+                <label className="block text-sm font-semibold mb-2">Catégorie *</label>
                 <select
                   name="category"
                   value={formData.category}
@@ -264,10 +264,10 @@ const AdminProductForm = () => {
                   required
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 >
-                  <option value="Shoes">Shoes</option>
-                  <option value="Apparel">Apparel</option>
-                  <option value="Balls">Balls</option>
-                  <option value="Accessories">Accessories</option>
+                  <option value="Shoes">Chaussures</option>
+                  <option value="Apparel">Vêtements</option>
+                  <option value="Balls">Ballons</option>
+                  <option value="Accessories">Accessoires</option>
                 </select>
               </div>
 
@@ -285,14 +285,14 @@ const AdminProductForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2">Badge (Optional)</label>
+                <label className="block text-sm font-semibold mb-2">Badge (facultatif)</label>
                 <select
                   name="badge"
                   value={formData.badge}
                   onChange={handleChange}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 >
-                  <option value="">No Badge</option>
+                  <option value="">Aucun badge</option>
                   <option value="NEW">NEW</option>
                   <option value="SALE">SALE</option>
                   <option value="BESTSELLER">BESTSELLER</option>
@@ -335,7 +335,7 @@ const AdminProductForm = () => {
                             : 'border-black hover:bg-black hover:text-white'
                         }`}>
                           <Upload size={16} />
-                          {uploadingIndex === index ? 'Uploading...' : 'Upload from device'}
+                          {uploadingIndex === index ? 'Importation...' : 'Importer depuis l\'appareil'}
                           <input
                             type="file"
                             accept="image/*"
@@ -347,7 +347,7 @@ const AdminProductForm = () => {
 
                         {/* URL input */}
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-gray-400 font-semibold uppercase">or URL</span>
+                          <span className="text-xs text-gray-400 font-semibold uppercase">ou URL</span>
                           <input
                             type="text"
                             value={image}
@@ -368,7 +368,7 @@ const AdminProductForm = () => {
                         </button>
                       )}
                     </div>
-                    {index === 0 && <p className="text-xs text-gray-400 mt-2">First image is used as the main product image</p>}
+                    {index === 0 && <p className="text-xs text-gray-400 mt-2">La première image est utilisée comme image principale du produit</p>}
                   </div>
                 ))}
               </div>
@@ -377,25 +377,25 @@ const AdminProductForm = () => {
                 onClick={addImageField}
                 className="mt-3 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-500 hover:border-black hover:text-black w-full transition"
               >
-                + Add another image
+                + Ajouter une autre image
               </button>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Sizes & Stock</label>
+              <label className="block text-sm font-semibold mb-2">Tailles & Stock</label>
               <div className="flex gap-2 mb-2">
                 <input
                   type="text"
                   value={sizeInput}
                   onChange={(e) => setSizeInput(e.target.value)}
-                  placeholder="Size (e.g., 42, M, L)"
+                  placeholder="Taille (ex : 42, M, L)"
                   className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 />
                 <input
                   type="number"
                   value={sizeStockInput}
                   onChange={(e) => setSizeStockInput(e.target.value)}
-                  placeholder="Stock qty"
+                  placeholder="Qté stock"
                   min="0"
                   className="w-32 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                 />
@@ -404,41 +404,41 @@ const AdminProductForm = () => {
                   onClick={addSize}
                   className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
                 >
-                  Add
+                  Ajouter
                 </button>
               </div>
               <div className="space-y-2">
                 {formData.sizes.map((sizeObj, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-gray-100 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <span className="font-semibold">Size: {sizeObj.size}</span>
-                      <span className="text-gray-600">Stock: {sizeObj.stock} units</span>
+                      <span className="font-semibold">Taille : {sizeObj.size}</span>
+                      <span className="text-gray-600">Stock : {sizeObj.stock} unités</span>
                     </div>
                     <button 
                       type="button" 
                       onClick={() => removeSize(sizeObj.size)} 
                       className="text-red-600 hover:text-red-800 font-bold"
                     >
-                      Remove
+                      Supprimer
                     </button>
                   </div>
                 ))}
               </div>
               {formData.sizes.length > 0 && (
                 <div className="mt-3 p-3 bg-blue-50 rounded-lg">
-                  <span className="font-semibold">Total Stock: {formData.sizes.reduce((sum, s) => sum + (s.stock || 0), 0)} units</span>
+                  <span className="font-semibold">Stock total : {formData.sizes.reduce((sum, s) => sum + (s.stock || 0), 0)} unités</span>
                 </div>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Colors</label>
+              <label className="block text-sm font-semibold mb-2">Couleurs</label>
               <div className="flex gap-2 mb-2">
                 <input
                   type="text"
                   value={colorInput}
                   onChange={(e) => setColorInput(e.target.value)}
-                  placeholder="Enter color"
+                  placeholder="Entrez une couleur"
                   className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addColor())}
                 />
@@ -447,7 +447,7 @@ const AdminProductForm = () => {
                   onClick={addColor}
                   className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
                 >
-                  Add
+                  Ajouter
                 </button>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -461,14 +461,14 @@ const AdminProductForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold mb-2">Features</label>
+              <label className="block text-sm font-semibold mb-2">Caractéristiques</label>
               {formData.features.map((feature, index) => (
                 <div key={index} className="flex gap-2 mb-2">
                   <input
                     type="text"
                     value={feature}
                     onChange={(e) => handleFeatureChange(index, e.target.value)}
-                    placeholder="Enter feature"
+                    placeholder="Entrez une caractéristique"
                     className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                   />
                   {formData.features.length > 1 && (
@@ -477,7 +477,7 @@ const AdminProductForm = () => {
                       onClick={() => removeFeatureField(index)}
                       className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
                     >
-                      Remove
+                      Supprimer
                     </button>
                   )}
                 </div>
@@ -487,7 +487,7 @@ const AdminProductForm = () => {
                 onClick={addFeatureField}
                 className="mt-2 px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
               >
-                + Add Feature
+                + Ajouter une caractéristique
               </button>
             </div>
 
@@ -497,13 +497,13 @@ const AdminProductForm = () => {
                 disabled={loading}
                 className="flex-1 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-all duration-300 disabled:bg-gray-400"
               >
-                {loading ? 'Saving...' : (isEdit ? 'Update Product' : 'Create Product')}
+                {loading ? 'Enregistrement...' : (isEdit ? 'Mettre à jour le produit' : 'Créer le produit')}
               </button>
               <Link
                 to="/admin/products"
                 className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-300"
               >
-                Cancel
+                Annuler
               </Link>
             </div>
           </form>

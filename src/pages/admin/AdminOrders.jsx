@@ -47,7 +47,7 @@ const AdminOrders = () => {
   };
 
 
-  const statuses = ['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
+  const statuses = ['Tout', 'En attente', 'En traitement', 'Expédié', 'Livré', 'Annulé'];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -55,8 +55,8 @@ const AdminOrders = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">Order Management</h2>
-          <p className="text-gray-600">View and manage all customer orders</p>
+          <h2 className="text-3xl font-bold mb-2">Gestion des commandes</h2>
+          <p className="text-gray-600">Consultez et gérez toutes les commandes clients</p>
         </div>
 
         <div className="bg-white rounded-card shadow-md p-6 mb-8">
@@ -65,7 +65,7 @@ const AdminOrders = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder="Search by order number, customer name, or email..."
+                placeholder="Rechercher par numéro, nom du client ou e-mail..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border rounded-lg"
@@ -88,19 +88,19 @@ const AdminOrders = () => {
 
         {loading ? (
           <div className="text-center py-12">
-            <p className="text-xl text-gray-600">Loading orders...</p>
+            <p className="text-xl text-gray-600">Chargement des commandes...</p>
           </div>
         ) : orders.length > 0 ? (
           <div className="bg-white rounded-card shadow-md overflow-hidden">
             <table className="w-full">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">Order #</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">Customer</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold">Commande #</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold">Client</th>
                   <th className="px-6 py-4 text-left text-sm font-semibold">Date</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">Items</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold">Articles</th>
                   <th className="px-6 py-4 text-left text-sm font-semibold">Total</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold">Statut</th>
                   <th className="px-6 py-4 text-left text-sm font-semibold">Actions</th>
                 </tr>
               </thead>
@@ -148,7 +148,7 @@ const AdminOrders = () => {
                         className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-semibold"
                       >
                         <Eye size={16} />
-                        View
+                        Voir
                       </Link>
                     </td>
                   </motion.tr>
@@ -158,8 +158,8 @@ const AdminOrders = () => {
           </div>
         ) : (
           <div className="bg-white rounded-card shadow-md p-16 text-center">
-            <p className="text-xl text-gray-600 mb-4">No orders found</p>
-            <p className="text-gray-500">Try adjusting your filters</p>
+            <p className="text-xl text-gray-600 mb-4">Aucune commande trouvée</p>
+            <p className="text-gray-500">Essayez de modifier vos filtres</p>
           </div>
         )}
       </div>

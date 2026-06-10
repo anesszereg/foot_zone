@@ -13,13 +13,13 @@ const ShoppingCart = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <ShoppingBag className="mx-auto mb-4 text-gray-400" size={64} />
-          <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
-          <p className="text-gray-600 mb-6">Add some products to get started!</p>
+          <h2 className="text-2xl font-bold mb-2">Votre panier est vide</h2>
+          <p className="text-gray-600 mb-6">Ajoutez des produits pour commencer !</p>
           <Link
             to="/"
             className="inline-block bg-black text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 transition"
           >
-            Continue Shopping
+            Continuer les achats
           </Link>
         </div>
       </div>
@@ -30,8 +30,8 @@ const ShoppingCart = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold">Shopping Cart</h1>
-          <p className="text-gray-600 mt-2">{cartItems.length} items in your cart</p>
+          <h1 className="text-3xl font-bold">Panier</h1>
+          <p className="text-gray-600 mt-2">{cartItems.length} article{cartItems.length > 1 ? 's' : ''} dans votre panier</p>
         </div>
       </div>
 
@@ -65,7 +65,7 @@ const ShoppingCart = () => {
                     </Link>
                     <p className="text-sm text-gray-600 mb-2">{item.brand}</p>
                     <div className="flex gap-4 text-sm mb-3">
-                      <span className="text-gray-600">Size: <span className="font-semibold text-black">{item.selectedSize}</span></span>
+                      <span className="text-gray-600">Taille : <span className="font-semibold text-black">{item.selectedSize}</span></span>
                     </div>
                     <p className="text-xl font-bold">{item.price}</p>
                   </div>
@@ -103,26 +103,26 @@ const ShoppingCart = () => {
                 to="/"
                 className="text-sm font-semibold hover:underline"
               >
-                ← Continue Shopping
+                ← Continuer les achats
               </Link>
             </div>
           </div>
 
           <div className="lg:col-span-1">
             <div className="bg-white rounded-card shadow-md p-6 sticky top-20">
-              <h2 className="text-xl font-bold mb-6">Order Summary</h2>
+              <h2 className="text-xl font-bold mb-6">Récapitulatif de la commande</h2>
 
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
-                  <span>Subtotal</span>
+                  <span>Sous-total</span>
                   <span className="font-semibold">{getCartTotal().toLocaleString()} DZD</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className="font-semibold text-green-600">Free</span>
+                  <span>Livraison</span>
+                  <span className="font-semibold text-green-600">Gratuite</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Tax (19%)</span>
+                  <span>TVA (19%)</span>
                   <span className="font-semibold">{(getCartTotal() * 0.19).toLocaleString()} DZD</span>
                 </div>
               </div>
@@ -138,19 +138,19 @@ const ShoppingCart = () => {
                 onClick={() => navigate('/checkout')}
                 className="w-full bg-black text-white py-4 rounded-lg font-semibold hover:bg-gray-900 transition-all duration-300 mb-3"
               >
-                Proceed to Checkout
+                Passer à la caisse
               </button>
 
               <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-semibold mb-2 text-sm">Have a promo code?</h3>
+                <h3 className="font-semibold mb-2 text-sm">Vous avez un code promo ?</h3>
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Enter code"
+                    placeholder="Entrez le code"
                     className="flex-1 px-3 py-2 border rounded-lg text-sm"
                   />
                   <button className="px-4 py-2 bg-black text-white rounded-lg text-sm font-semibold hover:bg-gray-900 transition">
-                    Apply
+                    Appliquer
                   </button>
                 </div>
               </div>
@@ -158,15 +158,15 @@ const ShoppingCart = () => {
               <div className="mt-6 space-y-3 text-sm text-gray-600">
                 <div className="flex items-center gap-2">
                   <span className="text-green-600">✓</span>
-                  <span>Free shipping on orders over 5000 DZD</span>
+                  <span>Livraison gratuite pour les commandes supérieures à 5 000 DZD</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-green-600">✓</span>
-                  <span>30-day return policy</span>
+                  <span>Politique de retour sous 30 jours</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-green-600">✓</span>
-                  <span>Secure checkout</span>
+                  <span>Paiement sécurisé</span>
                 </div>
               </div>
             </div>

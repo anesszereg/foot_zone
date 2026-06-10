@@ -13,9 +13,9 @@ const OrderDetails = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Order not found</h2>
+          <h2 className="text-2xl font-bold mb-4">Commande introuvable</h2>
           <Link to="/account/orders" className="text-blue-600 hover:underline">
-            Back to orders
+            Retour aux commandes
           </Link>
         </div>
       </div>
@@ -23,10 +23,10 @@ const OrderDetails = () => {
   }
 
   const trackingSteps = [
-    { label: 'Order Placed', icon: Package, completed: true, date: new Date(order.date).toLocaleDateString() },
-    { label: 'Processing', icon: Package, completed: true, date: new Date(order.date).toLocaleDateString() },
-    { label: 'Shipped', icon: Truck, completed: order.status !== 'Processing', date: order.status !== 'Processing' ? new Date(order.date).toLocaleDateString() : null },
-    { label: 'Delivered', icon: CheckCircle, completed: order.status === 'Delivered', date: order.status === 'Delivered' ? new Date(order.date).toLocaleDateString() : null },
+    { label: 'Commande passée', icon: Package, completed: true, date: new Date(order.date).toLocaleDateString('fr-FR') },
+    { label: 'En traitement', icon: Package, completed: true, date: new Date(order.date).toLocaleDateString('fr-FR') },
+    { label: 'Expédié', icon: Truck, completed: order.status !== 'Processing', date: order.status !== 'Processing' ? new Date(order.date).toLocaleDateString('fr-FR') : null },
+    { label: 'Livré', icon: CheckCircle, completed: order.status === 'Delivered', date: order.status === 'Delivered' ? new Date(order.date).toLocaleDateString('fr-FR') : null },
   ];
 
   return (
@@ -38,13 +38,13 @@ const OrderDetails = () => {
             className="inline-flex items-center gap-2 text-sm font-semibold hover:underline mb-4"
           >
             <ArrowLeft size={16} />
-            Back to Orders
+            Retour aux commandes
           </Link>
           <div className="flex justify-between items-start">
             <div>
-              <h1 className="text-3xl font-bold">Order #{order.id}</h1>
+              <h1 className="text-3xl font-bold">Commande #{order.id}</h1>
               <p className="text-gray-600 mt-2">
-                Placed on {new Date(order.date).toLocaleDateString('en-US', {
+                Passée le {new Date(order.date).toLocaleDateString('fr-FR', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -73,7 +73,7 @@ const OrderDetails = () => {
               animate={{ opacity: 1, y: 0 }}
               className="bg-white rounded-card shadow-md p-8"
             >
-              <h2 className="text-2xl font-bold mb-6">Order Tracking</h2>
+              <h2 className="text-2xl font-bold mb-6">Suivi de commande</h2>
               <div className="relative">
                 {trackingSteps.map((step, index) => (
                   <div key={step.label} className="flex gap-4 mb-8 last:mb-0">
@@ -93,7 +93,7 @@ const OrderDetails = () => {
                         <p className="text-sm text-gray-600">{step.date}</p>
                       )}
                       {!step.completed && index === trackingSteps.findIndex(s => !s.completed) && (
-                        <p className="text-sm text-gray-500 mt-1">Expected soon</p>
+                        <p className="text-sm text-gray-500 mt-1">Attendu prochainement</p>
                       )}
                     </div>
                   </div>
@@ -107,7 +107,7 @@ const OrderDetails = () => {
               transition={{ delay: 0.1 }}
               className="bg-white rounded-card shadow-md p-8"
             >
-              <h2 className="text-2xl font-bold mb-6">Order Items</h2>
+              <h2 className="text-2xl font-bold mb-6">Articles commandés</h2>
               <div className="space-y-6">
                 {order.items.map((item, index) => (
                   <div key={index} className="flex gap-6 pb-6 border-b last:border-b-0">
@@ -118,8 +118,8 @@ const OrderDetails = () => {
                       <h3 className="font-semibold text-lg mb-1">{item.name}</h3>
                       <p className="text-sm text-gray-600 mb-2">{item.brand}</p>
                       <div className="flex gap-4 text-sm">
-                        <span className="text-gray-600">Size: <span className="font-semibold text-black">{item.selectedSize}</span></span>
-                        <span className="text-gray-600">Qty: <span className="font-semibold text-black">{item.quantity}</span></span>
+                        <span className="text-gray-600">Taille : <span className="font-semibold text-black">{item.selectedSize}</span></span>
+                        <span className="text-gray-600">Qté : <span className="font-semibold text-black">{item.quantity}</span></span>
                       </div>
                     </div>
                     <div className="text-right">
@@ -138,18 +138,18 @@ const OrderDetails = () => {
               transition={{ delay: 0.2 }}
               className="bg-white rounded-card shadow-md p-6"
             >
-              <h3 className="font-bold text-lg mb-4">Order Summary</h3>
+              <h3 className="font-bold text-lg mb-4">Récapitulatif</h3>
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between text-gray-600">
-                  <span>Subtotal</span>
+                  <span>Sous-total</span>
                   <span>{(order.total / 1.19).toLocaleString()} DZD</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className="text-green-600">Free</span>
+                  <span>Livraison</span>
+                  <span className="text-green-600">Gratuite</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
-                  <span>Tax</span>
+                  <span>TVA</span>
                   <span>{(order.total - order.total / 1.19).toLocaleString()} DZD</span>
                 </div>
               </div>
@@ -169,7 +169,7 @@ const OrderDetails = () => {
             >
               <div className="flex items-center gap-2 mb-4">
                 <MapPin size={20} />
-                <h3 className="font-bold text-lg">Shipping Address</h3>
+                <h3 className="font-bold text-lg">Adresse de livraison</h3>
               </div>
               <p className="text-sm leading-relaxed">
                 {order.customer.firstName} {order.customer.lastName}<br />
@@ -189,13 +189,13 @@ const OrderDetails = () => {
             >
               <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-900 transition flex items-center justify-center gap-2">
                 <Download size={20} />
-                Download Invoice
+                Télécharger la facture
               </button>
               <button className="w-full border-2 border-black py-3 rounded-lg font-semibold hover:bg-gray-50 transition">
-                Contact Support
+                Contacter le support
               </button>
               <button className="w-full border-2 border-gray-300 py-3 rounded-lg font-semibold hover:border-black transition">
-                Reorder Items
+                Récommander
               </button>
             </motion.div>
           </div>
